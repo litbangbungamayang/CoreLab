@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.Timer;
@@ -61,6 +62,7 @@ public class MainWindow extends javax.swing.JFrame {
         commonController.refreshStatusPanel("NIRA");
         commonController.refreshStatusPanel("TRUK");
         lblPathXds.setText(commonController.bacaFileSetting("XDS"));
+        commonController.setVersiSistem();
         //lblPathXds.setText(commonController.getFolderXds());
         //JOptionPane.showMessageDialog(this, commonController.bacaFileSetting("Database"), "", JOptionPane.INFORMATION_MESSAGE);
         /************************* DISABLED ITEMS ****************************/
@@ -70,6 +72,7 @@ public class MainWindow extends javax.swing.JFrame {
         btnTesBasah.setVisible(false);
         btnTesKering.setVisible(false);
         lblAngkaTimbang.setVisible(false);
+        pgbNetto.setVisible(false);
     }
     
     public void setTimerXds(){
@@ -152,6 +155,9 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
         lblUsername = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        lblVersiSistem = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
         pnlIdTruk = new javax.swing.JPanel();
         pnlIdTrukMenuAtas = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -245,6 +251,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         btnUploadNetto = new javax.swing.JButton();
+        pgbNetto = new javax.swing.JProgressBar();
         jPanel6 = new javax.swing.JPanel();
         dtpTglSetPeriode = new org.jdesktop.swingx.JXDatePicker();
         jLabel37 = new javax.swing.JLabel();
@@ -401,28 +408,47 @@ public class MainWindow extends javax.swing.JFrame {
         lblUsername.setForeground(new java.awt.Color(0, 102, 102));
         lblUsername.setName("lblUsername"); // NOI18N
 
+        jLabel47.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        jLabel47.setText("Versi Sistem");
+
+        lblVersiSistem.setFont(new java.awt.Font("Open Sans", 1, 12)); // NOI18N
+        lblVersiSistem.setForeground(new java.awt.Color(3, 100, 0));
+        lblVersiSistem.setText("...");
+
+        jLabel49.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        jLabel49.setText("Dikembangkan oleh Bagian Litbang Bungamayang - 2017");
+
         javax.swing.GroupLayout pnlMainMenuLayout = new javax.swing.GroupLayout(pnlMainMenu);
         pnlMainMenu.setLayout(pnlMainMenuLayout);
         pnlMainMenuLayout.setHorizontalGroup(
             pnlMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMainMenuLayout.createSequentialGroup()
-                .addGroup(pnlMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlMainMenuLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel44)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlMainMenuLayout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(pnlMenuIdTruk, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel47)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblVersiSistem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(pnlMainMenuLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel44)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlMainMenuLayout.createSequentialGroup()
+                            .addGap(99, 99, 99)
+                            .addComponent(pnlMenuIdTruk, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addComponent(pnlMenuNira, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(pnlMenuNir, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(pnlMenuAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(pnlMenuKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlMainMenuLayout.createSequentialGroup()
+                        .addComponent(pnlMenuNira, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pnlMenuNir, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pnlMenuAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pnlMenuKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel49))
                 .addContainerGap(412, Short.MAX_VALUE))
         );
         pnlMainMenuLayout.setVerticalGroup(
@@ -439,7 +465,12 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(pnlMenuNir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnlMenuNira, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnlMenuIdTruk, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(352, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 327, Short.MAX_VALUE)
+                .addGroup(pnlMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel47)
+                    .addComponent(lblVersiSistem)
+                    .addComponent(jLabel49))
+                .addContainerGap())
         );
 
         pnlMainWindowBawah.add(pnlMainMenu, "crdMainMenu");
@@ -1254,7 +1285,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(pnlNiraContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlSampelMonitorNira, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlInputBerat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 48, Short.MAX_VALUE))
+                .addGap(0, 51, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlNiraLayout = new javax.swing.GroupLayout(pnlNira);
@@ -1356,7 +1387,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(pnlXdsMenuAtas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 538, Short.MAX_VALUE))
+                .addGap(0, 541, Short.MAX_VALUE))
         );
 
         pnlMainWindowBawah.add(pnlXds, "crdXds");
@@ -1419,6 +1450,9 @@ public class MainWindow extends javax.swing.JFrame {
         btnUploadNetto.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnUploadNetto.setName("btnUploadNetto"); // NOI18N
 
+        pgbNetto.setDoubleBuffered(true);
+        pgbNetto.setName("pgbNetto"); // NOI18N
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -1426,14 +1460,18 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel35)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel36)
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnUploadNetto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(dtpTglPeriode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(87, Short.MAX_VALUE))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel35)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel36)
+                                .addGap(34, 34, 34)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnUploadNetto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(dtpTglPeriode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 77, Short.MAX_VALUE))
+                    .addComponent(pgbNetto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1446,7 +1484,9 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(dtpTglPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUploadNetto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pgbNetto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -1519,7 +1559,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 304, Short.MAX_VALUE))
+                .addGap(0, 301, Short.MAX_VALUE))
         );
 
         pnlMainWindowBawah.add(pnlAdmin, "crdAdmin");
@@ -1623,7 +1663,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlMenuKeluarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addContainerGap(272, Short.MAX_VALUE))
         );
 
         pnlMainWindowBawah.add(pnlLogin, "crdLogin");
@@ -1749,6 +1789,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1778,8 +1820,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel lblStatusTimbang;
     private javax.swing.JLabel lblTsTr;
     private javax.swing.JLabel lblUsername;
+    private javax.swing.JLabel lblVersiSistem;
     private javax.swing.JList<String> lstMonitoringSampelNira;
     private javax.swing.JList<String> lstMonitoringSample;
+    private javax.swing.JProgressBar pgbNetto;
     private javax.swing.JPanel pnlAdmin;
     private javax.swing.JPanel pnlHomeAdmin;
     private javax.swing.JPanel pnlHomeIdTruk;
@@ -1916,5 +1960,12 @@ public class MainWindow extends javax.swing.JFrame {
     public JList getLstMonitoringSampelNira(){
         return lstMonitoringSampelNira;
     }
+    
+    public JProgressBar getPgbNetto(){
+        return pgbNetto;
+    }
 
+    public JLabel getLblVersiSistem(){
+        return lblVersiSistem;
+    }
 }

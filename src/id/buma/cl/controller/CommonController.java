@@ -20,6 +20,7 @@ import id.buma.cl.model.UserLogin;
 import id.buma.cl.view.MainWindow;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.GraphicsEnvironment;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -97,6 +98,30 @@ public class CommonController implements MouseListener {
     public String statusNira; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
+    public String versiSistem = "Corelab v.1.00.21052017.2015";
+    /*
+    * Corelab v.1.00.21052017.2015
+    *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
+    *   + Perubahan ukuran huruf untuk cetak DO dari semula 12 menjadi 14
+    */
+    
+    public void setVersiSistem(){
+        mw.getLblVersiSistem().setText(versiSistem);
+    }
+    
+    public void uploadNettoTimbangan(java.sql.Date tglPeriode){
+        totalSampel = sampelTebuDao.getAllSampelTebu(tglPeriode,"Y");
+        mw.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        for (SampelTebu st : totalSampel) {
+            sampelTebuDao.updateNetto(st.getNumerator(), trukTebuDao.getNettoTruk(st.getNumerator()));
+        }
+        mw.setCursor(null);
+        JOptionPane.showMessageDialog(mw, "Netto sudah terupdate!", "", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public void setProgressValue(int progressValue){
+        mw.getPgbNetto().setValue(progressValue);
+    }
     
     public void loginUser(){
         if (!mw.getTxtUsername().equals("") && !mw.getFtxtPassword().equals("")){
@@ -403,7 +428,7 @@ public class CommonController implements MouseListener {
                                 " dibawah standar!" + '\n' + "Sampel perlu diulang!", "", JOptionPane.ERROR_MESSAGE);
                         statusSampel = "BELUM ULANG";
                     } else {
-                        hasil = "CORE SAMPLER : DITOLAK! HK = " + hk;
+                        hasil = "CORE SAMPLER : DITOLAK! HK = " + hk + "; RAFAKSI 50%";
                         statusSampel = "TOLAK";
                     }
                 }
@@ -433,7 +458,7 @@ public class CommonController implements MouseListener {
                         statusSampel = "RAFAKSI";
                     } else {
                         if (jmlHk < hkBatasBawah){
-                            hasil = "CORE SAMPLER : DITOLAK! " + "HK1 = " + hk1 +
+                            hasil = "CORE SAMPLER : DITOLAK!\n" + "HK1 = " + hk1 +
                                     "; HK2 = " + hk2 + "; Rata2 = " + jmlHk;
                             statusSampel = "TOLAK";
                         }
@@ -449,7 +474,7 @@ public class CommonController implements MouseListener {
         StyledDocument doc = mw.getTxpBarcode().getStyledDocument();
         Style style = mw.getTxpBarcode().addStyle("statusHasil", null);
         StyleConstants.setFontFamily(style, "Consolas");
-        StyleConstants.setFontSize(style, 12);
+        StyleConstants.setFontSize(style, 16);
         try {
             doc.insertString(doc.getLength(), hasil, style);
             try {
@@ -869,10 +894,14 @@ public class CommonController implements MouseListener {
                     }
                 }
                 if (btnName.equals("btnUploadNetto")){
+                    /*
                     java.sql.Date perAnalisaUpload = getPeriodeAnalisa();
                     if (trukTebuDao.getNettoTruk(perAnalisaUpload,sampelTebuDao.getAllSampelTebu(perAnalisaUpload))){
                         JOptionPane.showMessageDialog(mw, "Data netto truk berhasil di-upload!", "", JOptionPane.INFORMATION_MESSAGE);
                     }
+                    */
+                    java.sql.Date tglNetto = new java.sql.Date(mw.getDtpTglPeriode().getDate().getTime());
+                    uploadNettoTimbangan(tglNetto);
                 }
                 if (btnName.equals("btnGantiPeriode")){
                     setPeriodeAnalisa();
@@ -942,7 +971,7 @@ public class CommonController implements MouseListener {
                 userBaru.getIdUser(),
                 null,
                 null,
-                "Corelab v.1.00.190520170317",
+                versiSistem,
                 "N"
             );
         if (sampelTebuDao.insertInputData(sampelBaru) == true){

@@ -575,5 +575,62 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
         }
         return false;
     }
+
+    @Override
+    public List<SampelTebu> getAllSampelTebu(Date periode, String cetakHasil) {
+        List<SampelTebu> sampelTebu = new ArrayList<>();
+        String sql = "SELECT * FROM TBL_CORELAB WHERE PERIODE=? AND CETAK_HASIL=?";
+        try {
+            if (DbCoreSamplerConnectionManager.isConnect() == true){
+                PreparedStatement ps = DbCoreSamplerConnectionManager.getConnection().prepareStatement(sql);
+                ps.setDate(1, new java.sql.Date(periode.getTime()));
+                ps.setString(2, cetakHasil);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()){
+                    SampelTebu st = new SampelTebu(
+                            rs.getString("ID_ANALISA"),
+                            rs.getInt("SEQ_NO"),
+                            rs.getString("NUMERATOR"),
+                            rs.getString("NO_TARRA"),
+                            rs.getString("NO_ANALISA"),
+                            rs.getString("NO_POLISI"),
+                            rs.getString("ID_PETANI"),
+                            rs.getString("NO_KEBUN"),
+                            rs.getDate("PERIODE"),
+                            rs.getString("RAYON"),
+                            rs.getString("TSTR"),
+                            rs.getDate("TGL_INPUT"),
+                            rs.getTime("JAM_INPUT"),
+                            rs.getDate("TGL_PRESS"),
+                            rs.getTime("JAM_PRESS"),
+                            rs.getDate("TGL_XDS"),
+                            rs.getTime("JAM_XDS"),
+                            rs.getDouble("BRIX"),
+                            rs.getDouble("POL"),
+                            rs.getDouble("HK"),
+                            rs.getDouble("AMPAS_BASAH"),
+                            rs.getDouble("AMPAS_KERING"),
+                            rs.getDouble("NIRA"),
+                            rs.getDouble("KNPP"),
+                            rs.getDouble("NNPP"),
+                            rs.getInt("NETTO"),
+                            rs.getString("ID_USER_INPUT"),
+                            rs.getString("ID_USER_PRESS"),
+                            rs.getString("ID_USER_XDS"),
+                            rs.getString("VERSI_SISTEM"),
+                            rs.getString("CETAK_HASIL")
+                    );
+                    sampelTebu.add(st);
+                }
+                return sampelTebu;
+            } else {
+                //TODO : kasih message/indikator
+            }
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(mw, "Error getAllSampelTebu!"+
+                    '\n'+"Error code : "+ex.toString(), "Error Get Data", JOptionPane.ERROR_MESSAGE);
+        }
+        return null;
+    }
     
 }

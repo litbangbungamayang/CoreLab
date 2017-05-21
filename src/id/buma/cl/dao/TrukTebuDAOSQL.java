@@ -124,5 +124,22 @@ public class TrukTebuDAOSQL implements TrukTebuDAO{
         }
         return false;
     }
+
+    @Override
+    public int getNettoTruk(String numerator) {
+        String sql = "SELECT * FROM TIMBANG WHERE NUMERATOR=?";
+        try {
+            PreparedStatement ps = DbTimbanganConnectionManager.getConnection().prepareStatement(sql);
+            ps.setString(1, numerator);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                return rs.getInt("NETTO");
+            }
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(mw, "Error getNettoTruk!\nError code = " +
+                    e.toString(), "", JOptionPane.ERROR_MESSAGE);
+        }
+        return 0;
+    }
     
 }

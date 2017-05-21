@@ -21,6 +21,8 @@ public interface SampelTebuDAO {
     public boolean insertDataXds (SampelTebu st);
     
     public List<SampelTebu> getAllSampelTebu(java.util.Date periode);
+    
+    public List<SampelTebu> getAllSampelTebu(java.util.Date periode, String cetakHasil);
            
     public List<SampelTebu> getAllSampelTebu();
     
