@@ -98,11 +98,15 @@ public class CommonController implements MouseListener {
     public String statusNira; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.00.21052017.2015";
+    public String versiSistem = "Corelab v.1.00.23052017.1634";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
     *   + Perubahan ukuran huruf untuk cetak DO dari semula 12 menjadi 14
+    * Corelab v.1.00.23052017.1634
+    *   + Perbaikan alur penerimaan HK tebu ulangan, sebelumnya apabila HK rata2 diatas HK batas atas, tetap kena rafaksi
+    *     Setelah perbaikan tidak kena rafaksi
+    *   + Pengamanan duplikasi ID Sampel Analisa
     */
     
     public void setVersiSistem(){
@@ -452,15 +456,21 @@ public class CommonController implements MouseListener {
                         }
                     }
                     jmlHk = (hk1 + hk2)/2;
-                    if (jmlHk >= hkBatasBawah){
+                    
+                    if (jmlHk >= hkBatasBawah && jmlHk < hkBatasAtas){
                         hasil = "CORE SAMPLER : LOLOS (RAFAKSI) ;"+ "HK1 = " + hk1 +
                                     "; HK2 = " + hk2 + "; Rata2 = " + jmlHk;
                         statusSampel = "RAFAKSI";
                     } else {
-                        if (jmlHk < hkBatasBawah){
-                            hasil = "CORE SAMPLER : DITOLAK!\n" + "HK1 = " + hk1 +
-                                    "; HK2 = " + hk2 + "; Rata2 = " + jmlHk;
-                            statusSampel = "TOLAK";
+                        if (jmlHk > hkBatasAtas){
+                        hasil = "CORE SAMPLER : LOLOS ;" + "HK1 = " + hk1 + "; HK2 = " + hk2 + "; Rata2 = " + jmlHk;
+                        statusSampel = "LOLOS";
+                        } else {
+                            if (jmlHk < hkBatasBawah){
+                                hasil = "CORE SAMPLER : DITOLAK!\n" + "HK1 = " + hk1 +
+                                        "; HK2 = " + hk2 + "; Rata2 = " + jmlHk;
+                                statusSampel = "TOLAK";
+                            }
                         }
                     }
                 } else {
@@ -494,7 +504,6 @@ public class CommonController implements MouseListener {
         DateFormat tglPeriode = new SimpleDateFormat("ddMMyyyy");
         String tglPeriodeId = tglPeriode.format(getPeriodeAnalisa());
         String idAnalisa = tglPeriodeId+idAnalisaDao.getLastId();
-        JOptionPane.showMessageDialog(mw, idAnalisa);
         DateFormat tglSkr = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         String timeStampSkr = tglSkr.format(new Date());
         mw.getTxpBarcode().setText("");
@@ -529,12 +538,13 @@ public class CommonController implements MouseListener {
 
                
         try {
-            //if (cetakLabel("\\\\N7-BUMA-LTB10\\EPSON L800 Series (Copy 1)") == true){
-            if (cetakLabel("PRINTER ID") == true){
-                simpanDataBaru(idAnalisa);
-            } else {
-                JOptionPane.showMessageDialog(mw, "Cetak ID Analisa gagal! ID belum tersimpan.",
-                        "Error Cetak ID", JOptionPane.ERROR_MESSAGE);
+            if (idAnalisaDao.cekDuplikatIdSampel(idAnalisa)){
+                if (cetakLabel("PRINTER ID") == true){
+                    simpanDataBaru(idAnalisa);
+                } else {
+                    JOptionPane.showMessageDialog(mw, "Cetak ID Analisa gagal! ID belum tersimpan.",
+                            "Error Cetak ID", JOptionPane.ERROR_MESSAGE);
+                }
             }
         } catch (HeadlessException | PrinterException | ParseException ex){
             System.out.println(ex.toString());

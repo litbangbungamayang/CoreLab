@@ -160,6 +160,29 @@ public class IdAnalisaDAOSQL implements IdAnalisaDAO{
         }
         return -1;
     }
+
+    @Override
+    public boolean cekDuplikatIdSampel(String idAnalisa) {
+        String sql = "SELECT * FROM TBL_CORELAB WHERE ID_ANALISA=?";
+        int jmlSampel = 0;
+        try {
+            if (DbCoreSamplerConnectionManager.isConnect()){
+                PreparedStatement ps = DbCoreSamplerConnectionManager.getConnection().prepareStatement(sql);
+                ps.setString(1, idAnalisa);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()){
+                    jmlSampel ++;
+                }
+                if (jmlSampel == 0){
+                    return true;
+                }
+           }
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(mw, "Error cekDuplikatIdAnalisa!\nError code = " +
+                    e.toString(), "", JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
+    }
     
     
 }

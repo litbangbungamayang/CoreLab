@@ -25,4 +25,6 @@ public interface IdAnalisaDAO {
     
     public int getBypassStatus();
     
+    public boolean cekDuplikatIdSampel(String idAnalisa);
+    
 }
