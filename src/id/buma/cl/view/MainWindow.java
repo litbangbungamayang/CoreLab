@@ -75,6 +75,7 @@ public class MainWindow extends javax.swing.JFrame {
         pgbNetto.setVisible(false);
     }
     
+    
     public void setTimerXds(){
         tmrMonitoringXds = new Timer(500, new ActionListener() {
             @Override
@@ -1968,4 +1969,5 @@ public class MainWindow extends javax.swing.JFrame {
     public JLabel getLblVersiSistem(){
         return lblVersiSistem;
     }
+    
 }

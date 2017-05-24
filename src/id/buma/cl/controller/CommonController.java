@@ -80,6 +80,7 @@ public class CommonController implements MouseListener {
     private IdAnalisaDAO idAnalisaDao = new IdAnalisaDAOSQL();
     private TrukTebuDAO trukTebuDao = new TrukTebuDAOSQL();
     private UserLoginDAO userLoginDao = new UserLoginDAOSQL();
+    private RegistrasiTruk regTruk = new RegistrasiTruk(mw);
     public double hkBatasBawah = 70.0;
     public double hkBatasAtas = 74.0; 
     public List<TrukTebu> arTrukTebu = new ArrayList<>();
@@ -108,6 +109,10 @@ public class CommonController implements MouseListener {
     *     Setelah perbaikan tidak kena rafaksi
     *   + Pengamanan duplikasi ID Sampel Analisa
     */
+    
+    public MainWindow getMw(){
+        return mw;
+    }
     
     public void setVersiSistem(){
         mw.getLblVersiSistem().setText(versiSistem);
@@ -853,7 +858,10 @@ public class CommonController implements MouseListener {
         String txtText = txt.getText().trim();
         if (txtName.equals("ftxtNumerator")){
             String parsingTgl = mw.numeratorFormat.format(mw.getDtpTglMasuk().getDate());
-            cekNumerator(txtText.length(),parsingTgl,txtText);            
+            /*
+            ekNumerator(txtText.length(),parsingTgl,txtText);            
+            */
+            regTruk.cekNumerator(txtText.length(), parsingTgl, txtText);
         }
         if (txtName.equals("ftxtKodeSampel")){
             idAnalisaSampelCake = txtText;
@@ -873,6 +881,7 @@ public class CommonController implements MouseListener {
                     pageSwitcher(mw.getnPnlMultiFunctionIdTruk(), "crdSampleMonitor");
                 }
                 if (btnName.equals("btnCetakId")){
+                    /*
                     if (!mw.getLblNumerator().getText().equals("")){
                         try {
                             generateIdAnalisa();
@@ -883,6 +892,8 @@ public class CommonController implements MouseListener {
                     } else {
                         JOptionPane.showMessageDialog(mw, "Data numerator belum dimasukkan!", "Error Input", JOptionPane.ERROR_MESSAGE);
                     }
+                    */
+                    regTruk.generateIdAnalisa();
                 }
                 if (btnName.equals("btnCetakHasil")){
                     if (mw.getLstMonitoringSampel().getSelectedIndex() != -1){

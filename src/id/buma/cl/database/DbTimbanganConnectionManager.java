@@ -31,7 +31,7 @@ public class DbTimbanganConnectionManager {
                 String conStringLokal = "jdbc:sqlserver://LOCALHOST\\X230_SRV:1433;"+
                                    "databaseName=SugarCaneDb;user=prod;password=prod;";
 
-                connection = DriverManager.getConnection(conStringLive);
+                connection = DriverManager.getConnection(conStringLokal);
                 
             } catch (ClassNotFoundException | SQLException e) {
                 return null;
