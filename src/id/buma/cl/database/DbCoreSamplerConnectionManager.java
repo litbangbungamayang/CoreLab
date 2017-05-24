@@ -34,7 +34,7 @@ public class DbCoreSamplerConnectionManager {
                 String conStringLive = "jdbc:sqlserver://192.168.39.135:1433;"+
                                    "databaseName=BUMA;user=prod;password=prod;";
                 
-                connection = DriverManager.getConnection(conStringLokal);
+                connection = DriverManager.getConnection(conStringLive);
             } catch (SQLException e) {
                 return null;
             }
