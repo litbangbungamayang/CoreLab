@@ -5,7 +5,6 @@
  */
 package id.buma.cl.database;
 
-import id.buma.cl.controller.CommonController;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

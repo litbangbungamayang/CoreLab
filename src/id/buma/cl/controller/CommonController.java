@@ -81,7 +81,9 @@ public class CommonController implements MouseListener {
     private TrukTebuDAO trukTebuDao = new TrukTebuDAOSQL();
     private UserLoginDAO userLoginDao = new UserLoginDAOSQL();
     public double hkBatasBawah = 70.0;
-    public double hkBatasAtas = 74.0; 
+    public double hkBatasAtas = 74.0;
+    public double rafaksi1 = 0.30;
+    public double rafaksi2 = 0.50;
     public List<TrukTebu> arTrukTebu = new ArrayList<>();
     public List<SampelTebu> totalSampel;
     public List<SampelTebu> arCetakSampel;
@@ -98,7 +100,7 @@ public class CommonController implements MouseListener {
     public String statusNira; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.00.23052017.1634";
+    public String versiSistem = "Corelab v.1.00.25052017.2107";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
@@ -107,6 +109,9 @@ public class CommonController implements MouseListener {
     *   + Perbaikan alur penerimaan HK tebu ulangan, sebelumnya apabila HK rata2 diatas HK batas atas, tetap kena rafaksi
     *     Setelah perbaikan tidak kena rafaksi
     *   + Pengamanan duplikasi ID Sampel Analisa
+    * Corelab v.1.00.25052017.2107
+    *   + Penambahan fitur insert ke tabel rafaksi di database timbangan
+    *   + Setting ulang simpan status sampel
     */
     
     public void setVersiSistem(){
@@ -270,22 +275,7 @@ public class CommonController implements MouseListener {
     public void cekComPort(){
         SerialPort comPort = SerialPort.getCommPort("COM7");
         comPort.openPort();
-        /*
-        //comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 100, 0);
         InputStream in = comPort.getInputStream();
-        try {
-            for (int i = 0; i < 100; i++){
-                System.out.print((char)in.read());
-            }
-            in.close();
-        } catch (IOException e){
-            JOptionPane.showMessageDialog(mw, e.toString());
-        }
-        comPort.closePort();
-        JOptionPane.showMessageDialog(mw, "Masuk");
-        */
-        InputStream in = comPort.getInputStream();
-
         comPort.closePort();
     }
     
@@ -336,16 +326,9 @@ public class CommonController implements MouseListener {
     }
     
     public void testPrinter(){
-        /*
-        PrintService[] services = PrintServiceLookup.lookupPrintServices(null,null);
-        for (PrintService service: services) {
-            System.out.printf("\nNama printer: %s\n", service.getName());
-        }
-        */
         GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String []fonts = g.getAvailableFontFamilyNames();
         for (int i = 0; i < fonts.length; i++) {
-            //System.out.println(fonts[i]);
             if(fonts[i].equals("Archon Code 39 Barcode")){
                 System.out.println("Found!");
             }
@@ -360,11 +343,13 @@ public class CommonController implements MouseListener {
                 break;
             case "RAFAKSI":
                 trukTebuDao.konversiNumerator(numerator);
-                trukTebuDao.setRafaksi(numerator);
+                trukTebuDao.setRafaksi(numerator,rafaksi1);
                 sampelTebuDao.setCetakHasil(numerator);
                 break;
             case "TOLAK":
-                sampelTebuDao.setCetakHasil(numerator);
+                trukTebuDao.konversiNumerator(numerator);
+                trukTebuDao.setRafaksi(numerator, rafaksi2);
+                sampelTebuDao.setCetakHasil(numerator);                
                 break;
             case "BELUM ULANG":
                 break;
@@ -904,12 +889,6 @@ public class CommonController implements MouseListener {
                     }
                 }
                 if (btnName.equals("btnUploadNetto")){
-                    /*
-                    java.sql.Date perAnalisaUpload = getPeriodeAnalisa();
-                    if (trukTebuDao.getNettoTruk(perAnalisaUpload,sampelTebuDao.getAllSampelTebu(perAnalisaUpload))){
-                        JOptionPane.showMessageDialog(mw, "Data netto truk berhasil di-upload!", "", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                    */
                     java.sql.Date tglNetto = new java.sql.Date(mw.getDtpTglPeriode().getDate().getTime());
                     uploadNettoTimbangan(tglNetto);
                 }

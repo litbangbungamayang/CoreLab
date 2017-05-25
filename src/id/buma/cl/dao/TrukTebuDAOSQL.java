@@ -83,14 +83,20 @@ public class TrukTebuDAOSQL implements TrukTebuDAO{
     }
 
     @Override
-    public boolean setRafaksi(String numerator) {
+    public boolean setRafaksi(String numerator, double jenisRafaksi) {
         String sql = "UPDATE TIMBANG SET RAFAKSI=? WHERE NUMERATOR=?";
         try {
             PreparedStatement ps = DbTimbanganConnectionManager.getConnection().prepareStatement(sql);
             ps.setInt(1,1);
             ps.setString(2, numerator);
             if (ps.executeUpdate() > 0){
-                return true;
+                sql = "INSERT INTO TBL_RAFAKSI_CS (NUMERATOR,JENIS_RAFAKSI,KW_RAFAKSI) VALUES(?,?,?)";
+                ps = DbTimbanganConnectionManager.getConnection().prepareStatement(sql);
+                ps.setString(1, numerator);
+                ps.setDouble(2, jenisRafaksi);
+                if (ps.executeUpdate() == 1){
+                    return true;
+                }                
             }
         } catch (Exception ex){
             JOptionPane.showMessageDialog(mw, "Error setRafaksi!" + '\n' +

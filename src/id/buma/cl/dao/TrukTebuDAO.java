@@ -19,7 +19,7 @@ public interface TrukTebuDAO {
     
     public boolean konversiNumerator(String numerator);
     
-    public boolean setRafaksi(String numerator);
+    public boolean setRafaksi(String numerator, double jenisRafaksi);
     
     public boolean getNettoTruk(java.sql.Date periode, List<SampelTebu> st);
     
