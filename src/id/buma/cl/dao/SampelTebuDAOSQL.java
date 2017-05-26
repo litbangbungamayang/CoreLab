@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.*;
 
 /**
  *
@@ -234,12 +235,13 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
 
     @Override
     public double getHkSampelByNumerator(String numerator) {
-        String sql = "SELECT HK FROM TBL_CORELAB WHERE NUMERATOR=?";
+        String sql = "SELECT HK FROM TBL_CORELAB WHERE NUMERATOR=? AND SEQ_NO=?";
         Double hk = 0.0;
         if (DbCoreSamplerConnectionManager.isConnect() == true){
             try {
                 PreparedStatement ps = DbCoreSamplerConnectionManager.getConnection().prepareStatement(sql);
                 ps.setString(1, numerator);
+                ps.setInt(2, 1);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()){
                     hk = rs.getDouble("HK");
@@ -631,6 +633,13 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
                     '\n'+"Error code : "+ex.toString(), "Error Get Data", JOptionPane.ERROR_MESSAGE);
         }
         return null;
+    }
+
+    @Override
+    public void cetakLaporanHarian(java.sql.Date tglLaporan) {
+        if (DbCoreSamplerConnectionManager.isConnect()){
+            //
+        }
     }
     
 }

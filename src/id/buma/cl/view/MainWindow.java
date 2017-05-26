@@ -511,6 +511,7 @@ public class MainWindow extends javax.swing.JFrame {
             .addComponent(pnlHomeIdTruk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        pnlMultiFunction.setPreferredSize(new java.awt.Dimension(660, 534));
         pnlMultiFunction.setLayout(new java.awt.CardLayout());
 
         pnlManualInput.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -599,7 +600,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addComponent(btnSimpanManualInput, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnBatalManualInput, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(350, Short.MAX_VALUE))
         );
         pnlManualInputLayout.setVerticalGroup(
             pnlManualInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -631,7 +632,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(157, 0, 0));
         jPanel1.setRequestFocusEnabled(false);
 
-        jLabel26.setFont(new java.awt.Font("Open Sans", 0, 13)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Open Sans", 1, 13)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel26.setText("Status Sampel");
@@ -659,7 +660,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel27.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setText("          ID Sampel               [Numerator/DO]                [Status]");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -714,7 +714,7 @@ public class MainWindow extends javax.swing.JFrame {
             pnlSampleMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
             .addGroup(pnlSampleMonitorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlSampleMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -987,8 +987,8 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(pnlIdTrukReg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addComponent(pnlMultiFunction, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(620, Short.MAX_VALUE))
+                .addComponent(pnlMultiFunction, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(408, Short.MAX_VALUE))
         );
         pnlIdTrukContentLayout.setVerticalGroup(
             pnlIdTrukContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1206,7 +1206,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel8.setBackground(new java.awt.Color(157, 0, 0));
         jPanel8.setRequestFocusEnabled(false);
 
-        jLabel45.setFont(new java.awt.Font("Open Sans", 0, 13)); // NOI18N
+        jLabel45.setFont(new java.awt.Font("Open Sans", 1, 13)); // NOI18N
         jLabel45.setForeground(new java.awt.Color(255, 255, 255));
         jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel45.setText("Status Sampel");
@@ -1234,7 +1234,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel46.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
         jLabel46.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel46.setText("          ID Sampel               [Numerator/DO]                [Status]");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -1256,7 +1255,7 @@ public class MainWindow extends javax.swing.JFrame {
             pnlSampelMonitorNiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
         );
         pnlSampelMonitorNiraLayout.setVerticalGroup(
             pnlSampelMonitorNiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

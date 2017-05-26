@@ -51,4 +51,7 @@ public interface SampelTebuDAO {
     public boolean updateDataXds(String idAnalisa, Double nilaiBrix, Double nilaiPol, String idUser);
     
     public boolean updateNetto(String numerator,int netto);
+    
+    public void cetakLaporanHarian(java.sql.Date tglLaporan);
+    
 }

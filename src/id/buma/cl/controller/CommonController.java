@@ -14,6 +14,7 @@ import id.buma.cl.dao.TrukTebuDAO;
 import id.buma.cl.dao.TrukTebuDAOSQL;
 import id.buma.cl.dao.UserLoginDAO;
 import id.buma.cl.dao.UserLoginDAOSQL;
+import id.buma.cl.database.DbCoreSamplerConnectionManager;
 import id.buma.cl.model.SampelTebu;
 import id.buma.cl.model.TrukTebu;
 import id.buma.cl.model.UserLogin;
@@ -100,7 +101,7 @@ public class CommonController implements MouseListener {
     public String statusNira; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.00.25052017.2107";
+    public String versiSistem = "Corelab v.1.00.27052017.0637";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
@@ -112,7 +113,18 @@ public class CommonController implements MouseListener {
     * Corelab v.1.00.25052017.2107
     *   + Penambahan fitur insert ke tabel rafaksi di database timbangan
     *   + Setting ulang simpan status sampel
+    * Corelab v.1.00.27052017.0637
+    *   + Perbaikan monitoring sampel
+    *   + Setting ulang simpan status sampel
+    *   + Tambahkan insert untuk TBL_RAFAKSI_CS di database Timbangan
     */
+    
+    
+    public void printLapHar(java.sql.Date tglLaporan){
+        if (DbCoreSamplerConnectionManager.isConnect()){
+            
+        }
+    }
     
     public void setVersiSistem(){
         mw.getLblVersiSistem().setText(versiSistem);
@@ -362,7 +374,7 @@ public class CommonController implements MouseListener {
         /*
         int wd = Math.round(MediaSize.ISO.A4.getX(MediaSize.MM));
         int hg = Math.round(MediaSize.ISO.A4.getY(MediaSize.MM));
-        attributes.add(new MediaPrintableArea(10, 10, wd-10, hg-10, MediaPrintableArea.MM));
+        attributes.add(byshn    new MediaPrintableArea(10, 10, wd-10, hg-10, MediaPrintableArea.MM));
         */
         DocFlavor format = DocFlavor.SERVICE_FORMATTED.PRINTABLE;
         PrintService[] services = PrintServiceLookup.lookupPrintServices(format,attributes);
@@ -417,7 +429,7 @@ public class CommonController implements MouseListener {
                                 " dibawah standar!" + '\n' + "Sampel perlu diulang!", "", JOptionPane.ERROR_MESSAGE);
                         statusSampel = "BELUM ULANG";
                     } else {
-                        hasil = "CORE SAMPLER : DITOLAK! HK = " + hk + "; RAFAKSI 50%";
+                        hasil = "CORE SAMPLER : DITOLAK! (RAFAKSI 50%)\n HK = " + hk;
                         statusSampel = "TOLAK";
                     }
                 }
@@ -441,9 +453,9 @@ public class CommonController implements MouseListener {
                         }
                     }
                     jmlHk = (hk1 + hk2)/2;
-                    
+                    JOptionPane.showMessageDialog(mw, "HK1="+hk1+";HK2="+hk2+"HKr="+jmlHk);
                     if (jmlHk >= hkBatasBawah && jmlHk < hkBatasAtas){
-                        hasil = "CORE SAMPLER : LOLOS (RAFAKSI) ;"+ "HK1 = " + hk1 +
+                        hasil = "CORE SAMPLER : LOLOS (RAFAKSI 30%) ;"+ "HK1 = " + hk1 +
                                     "; HK2 = " + hk2 + "; Rata2 = " + jmlHk;
                         statusSampel = "RAFAKSI";
                     } else {
@@ -452,7 +464,7 @@ public class CommonController implements MouseListener {
                         statusSampel = "LOLOS";
                         } else {
                             if (jmlHk < hkBatasBawah){
-                                hasil = "CORE SAMPLER : DITOLAK!\n" + "HK1 = " + hk1 +
+                                hasil = "CORE SAMPLER : DITOLAK! (RAFAKSI 50%)\n" + "HK1 = " + hk1 +
                                         "; HK2 = " + hk2 + "; Rata2 = " + jmlHk;
                                 statusSampel = "TOLAK";
                             }
@@ -472,6 +484,7 @@ public class CommonController implements MouseListener {
         StyleConstants.setFontSize(style, 16);
         try {
             doc.insertString(doc.getLength(), hasil, style);
+            
             try {
                 if (cetakLabel("PRINTER DO") == true){
                     simpanStatusSampel(numerator, statusSampel);
@@ -480,6 +493,7 @@ public class CommonController implements MouseListener {
             } catch (PrinterException ex) {
                 Logger.getLogger(CommonController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
         } catch (BadLocationException ex) {
             Logger.getLogger(CommonController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -519,9 +533,7 @@ public class CommonController implements MouseListener {
         StyleConstants.setFontSize(style, 12);
         try{
             doc.insertString(doc.getLength(),timeStampSkr, style);
-        } catch (BadLocationException ex){}
-
-               
+        } catch (BadLocationException ex){}               
         try {
             if (idAnalisaDao.cekDuplikatIdSampel(idAnalisa)){
                 if (cetakLabel("PRINTER ID") == true){
@@ -871,8 +883,9 @@ public class CommonController implements MouseListener {
                 }
                 if (btnName.equals("btnCetakHasil")){
                     if (mw.getLstMonitoringSampel().getSelectedIndex() != -1){
-                        try {                           
-                            preCekHasilAnalisa(totalSampel.get(mw.getLstMonitoringSampel().getSelectedIndex()).getNumerator());
+                        try {
+                            String numeratorHasil = totalSampel.get(mw.getLstMonitoringSampel().getSelectedIndex()).getNumerator();
+                            preCekHasilAnalisa(numeratorHasil);
                         } catch (ParseException ex) {
                             Logger.getLogger(CommonController.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -976,38 +989,49 @@ public class CommonController implements MouseListener {
     public String cekStatusSampel(SampelTebu st) throws ParseException{
         java.util.Date komparasiTgl = mw.sqlDateFormat.parse("1900/01/01");
         if (st.getTgl_press().compareTo(komparasiTgl) == 0){
-            return st.getNoAnalisa() + " [" + st.getNumerator() + "]" + " [NIRA]";
+            return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" + st.getNoTarra() + "] " + " [NIRA]";
         } else {
             if (st.getTgl_xds().compareTo(komparasiTgl) == 0){
-                return st.getNoAnalisa() + " [" + st.getNumerator() + "]" + " [XDS]";
+                return st.getNoAnalisa() + " [" + st.getNumerator() + "]" + "] [" + st.getNoTarra() + "] " + " [XDS]";
             } else {
                 if (st.getSeqNo() == 1){
                     hkPertama = st.getHk();
                     if ((hkPertama >= hkBatasBawah) && (hkPertama < hkBatasAtas)){
-                        return st.getNoAnalisa() + " [" + st.getNumerator() +
-                                "]" + " Belum dicetak! HK = " + hkPertama + " [ULANG]";
+                        return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
+                                st.getNoTarra() + "] " + " Belum dicetak! HK = " + hkPertama + " [ULANG]";
                     } else {
                         if (hkPertama >= hkBatasAtas){
-                            return st.getNoAnalisa() + " [" + st.getNumerator() +
-                                    "]" + " Belum dicetak! [MASUK]";
+                            return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
+                                    st.getNoTarra() + "] " + " Belum dicetak! [MASUK]";
                         } else {
-                            return st.getNoAnalisa() + " [" + st.getNumerator() +
-                                    "]" + " Belum dicetak! HK = " + hkPertama + " [TOLAK]";
+                            return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
+                                    st.getNoTarra() + "] " + " Belum dicetak! HK = " + hkPertama + " [TOLAK]";
                         }
                     }
                 } else {
+                    hkPertama = sampelTebuDao.getHkSampelByNumerator(st.getNumerator());
                     hkKedua = st.getHk();
                     hkRataan = (hkPertama + hkKedua)/2;
-                    if (hkRataan >= hkBatasBawah){
-                        return st.getNoAnalisa() + " [" + st.getNumerator() +
-                                "]" + " Belum dicetak! HK Rata2 = " + hkRataan + " [MASUK]";
+                    if (hkRataan >= hkBatasBawah && hkRataan < hkBatasAtas){
+                        return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
+                                st.getNoTarra() + "] " + " Belum dicetak! HK Rata2 = " + hkRataan +
+                                " [MASUK - RAFAKSI 30%]";
                     } else {
-                        return st.getNoAnalisa() + " [" + st.getNumerator() +
-                                "]" + " Belum dicetak! HK Rata2 = " + hkRataan + " [TOLAK]";
+                        if (hkRataan > hkBatasAtas){
+                            return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
+                                    st.getNoTarra() + "] " + "Belum dicetak! HK Rata2 = " + hkRataan +
+                                    " [LOLOS]";
+                        } else {
+                            if (hkRataan < hkBatasBawah){
+                                return st.getNoAnalisa() + " [" + st.getNumerator() +
+                                "]" + " Belum dicetak! HK1="+hkPertama+"; HK2="+hkKedua+";HK Rata2 = " + hkRataan + " [TOLAK - RAFAKSI 50%]";
+                            }
+                        }                        
                     }
                 }
             }
         }
+        return "";
     }
     
     public int cekStatusNira(SampelTebu st) throws ParseException{

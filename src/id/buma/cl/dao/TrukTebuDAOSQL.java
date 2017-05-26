@@ -94,6 +94,7 @@ public class TrukTebuDAOSQL implements TrukTebuDAO{
                 ps = DbTimbanganConnectionManager.getConnection().prepareStatement(sql);
                 ps.setString(1, numerator);
                 ps.setDouble(2, jenisRafaksi);
+                ps.setInt(3, 0);
                 if (ps.executeUpdate() == 1){
                     return true;
                 }                

@@ -598,8 +598,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="pnlIdTrukReg" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                          <Component id="pnlMultiFunction" min="-2" pref="448" max="-2" attributes="0"/>
-                          <EmptySpace pref="620" max="32767" attributes="0"/>
+                          <Component id="pnlMultiFunction" min="-2" pref="660" max="-2" attributes="0"/>
+                          <EmptySpace pref="408" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -618,6 +618,11 @@
               </Layout>
               <SubComponents>
                 <Container class="javax.swing.JPanel" name="pnlMultiFunction">
+                  <Properties>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[660, 534]"/>
+                    </Property>
+                  </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
                   <SubComponents>
@@ -666,7 +671,7 @@
                                           <Component id="btnBatalManualInput" min="-2" pref="140" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="138" max="32767" attributes="0"/>
+                                  <EmptySpace pref="350" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -852,7 +857,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
                               <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jScrollPane1" alignment="0" pref="446" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" alignment="0" pref="658" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -924,7 +929,7 @@
                             <Component class="javax.swing.JLabel" name="jLabel26">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                  <Font name="Open Sans" size="13" style="0"/>
+                                  <Font name="Open Sans" size="13" style="1"/>
                                 </Property>
                                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -991,7 +996,6 @@
                                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="          ID Sampel               [Numerator/DO]                [Status]"/>
                               </Properties>
                             </Component>
                           </SubComponents>
@@ -1923,7 +1927,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel8" alignment="0" max="32767" attributes="0"/>
                           <Component id="jPanel9" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jScrollPane3" alignment="0" pref="446" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" alignment="0" pref="658" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -1967,7 +1971,7 @@
                         <Component class="javax.swing.JLabel" name="jLabel45">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Open Sans" size="13" style="0"/>
+                              <Font name="Open Sans" size="13" style="1"/>
                             </Property>
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -2034,7 +2038,6 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="ff" green="ff" red="ff" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="          ID Sampel               [Numerator/DO]                [Status]"/>
                           </Properties>
                         </Component>
                       </SubComponents>
