@@ -14,7 +14,6 @@ import id.buma.cl.dao.TrukTebuDAO;
 import id.buma.cl.dao.TrukTebuDAOSQL;
 import id.buma.cl.dao.UserLoginDAO;
 import id.buma.cl.dao.UserLoginDAOSQL;
-import id.buma.cl.database.DbCoreSamplerConnectionManager;
 import id.buma.cl.model.SampelTebu;
 import id.buma.cl.model.TrukTebu;
 import id.buma.cl.model.UserLogin;
@@ -101,7 +100,7 @@ public class CommonController implements MouseListener {
     public String statusNira; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.00.27052017.0637";
+    public String versiSistem = "Corelab v.1.00.28052017.1558";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
@@ -117,14 +116,11 @@ public class CommonController implements MouseListener {
     *   + Perbaikan monitoring sampel
     *   + Setting ulang simpan status sampel
     *   + Tambahkan insert untuk TBL_RAFAKSI_CS di database Timbangan
+    * Corelab v.1.00.28052017.1558
+    *   + Penambahan fitur cetak laporan harian (rakpitulasi)
+    *   + Perbaikan monitoring sampel
+    *   + Ganti icon untuk refresh data di monitoring sampel
     */
-    
-    
-    public void printLapHar(java.sql.Date tglLaporan){
-        if (DbCoreSamplerConnectionManager.isConnect()){
-            
-        }
-    }
     
     public void setVersiSistem(){
         mw.getLblVersiSistem().setText(versiSistem);
@@ -355,12 +351,12 @@ public class CommonController implements MouseListener {
                 break;
             case "RAFAKSI":
                 trukTebuDao.konversiNumerator(numerator);
-                trukTebuDao.setRafaksi(numerator,rafaksi1);
+                trukTebuDao.setRafaksi(numerator,rafaksi1,getPeriodeAnalisa());
                 sampelTebuDao.setCetakHasil(numerator);
                 break;
             case "TOLAK":
                 trukTebuDao.konversiNumerator(numerator);
-                trukTebuDao.setRafaksi(numerator, rafaksi2);
+                trukTebuDao.setRafaksi(numerator, rafaksi2,getPeriodeAnalisa());
                 sampelTebuDao.setCetakHasil(numerator);                
                 break;
             case "BELUM ULANG":
@@ -453,7 +449,9 @@ public class CommonController implements MouseListener {
                         }
                     }
                     jmlHk = (hk1 + hk2)/2;
-                    JOptionPane.showMessageDialog(mw, "HK1="+hk1+";HK2="+hk2+"HKr="+jmlHk);
+                    /*
+                        JOptionPane.showMessageDialog(mw, "HK1="+hk1+";HK2="+hk2+"HKr="+jmlHk);
+                    */
                     if (jmlHk >= hkBatasBawah && jmlHk < hkBatasAtas){
                         hasil = "CORE SAMPLER : LOLOS (RAFAKSI 30%) ;"+ "HK1 = " + hk1 +
                                     "; HK2 = " + hk2 + "; Rata2 = " + jmlHk;
@@ -892,7 +890,19 @@ public class CommonController implements MouseListener {
                     }
                 }
                 if (btnName.equals("cekPrinter")){
-                    testPrinter();
+                    try {
+                        java.util.Date tglLaporan = mw.sqlDateFormat.parse("2017/05/26");
+                        sampelTebuDao.cetakLaporanHarian(new java.sql.Date(tglLaporan.getTime()));
+                    } catch (ParseException ex) {
+                        Logger.getLogger(CommonController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                }
+                if (btnName.equals("btnLapHar")){
+                    java.sql.Date tglLaporan = new java.sql.Date(mw.getDtpCetakLaporan1().getDate().getTime());
+                    if (userBaru.getKewenangan().equals("admin")){
+                        sampelTebuDao.cetakLaporanHarian(tglLaporan);                        
+                    }
                 }
                 if (btnName.equals("btnSimpanAmpas")){
                     if (sampelBaru != null){
@@ -992,7 +1002,7 @@ public class CommonController implements MouseListener {
             return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" + st.getNoTarra() + "] " + " [NIRA]";
         } else {
             if (st.getTgl_xds().compareTo(komparasiTgl) == 0){
-                return st.getNoAnalisa() + " [" + st.getNumerator() + "]" + "] [" + st.getNoTarra() + "] " + " [XDS]";
+                return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" + st.getNoTarra() + "] " + " [XDS]";
             } else {
                 if (st.getSeqNo() == 1){
                     hkPertama = st.getHk();

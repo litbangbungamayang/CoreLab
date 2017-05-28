@@ -72,7 +72,7 @@ public class MainWindow extends javax.swing.JFrame {
         btnTesBasah.setVisible(false);
         btnTesKering.setVisible(false);
         lblAngkaTimbang.setVisible(false);
-        pgbNetto.setVisible(false);
+        pgbNetto.setVisible(true);
     }
     
     public void setTimerXds(){
@@ -123,6 +123,7 @@ public class MainWindow extends javax.swing.JFrame {
         btnTesKering.addActionListener(commonController.actButton(btnTesKering));
         btnLogin.addActionListener(commonController.actButton(btnLogin));
         btnRefreshData.addActionListener(commonController.actButton(btnRefreshData));
+        btnLapHar.addActionListener(commonController.actButton(btnLapHar));
     }
     
     /**
@@ -246,17 +247,22 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel33 = new javax.swing.JLabel();
         pnlHomeAdmin = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        pnlUploadNetto = new javax.swing.JPanel();
         dtpTglPeriode = new org.jdesktop.swingx.JXDatePicker();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         btnUploadNetto = new javax.swing.JButton();
         pgbNetto = new javax.swing.JProgressBar();
-        jPanel6 = new javax.swing.JPanel();
+        pnlGantiPeriode = new javax.swing.JPanel();
         dtpTglSetPeriode = new org.jdesktop.swingx.JXDatePicker();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         btnGantiPeriode = new javax.swing.JButton();
+        pnlCetakLaporan = new javax.swing.JPanel();
+        dtpCetakLaporan1 = new org.jdesktop.swingx.JXDatePicker();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        btnLapHar = new javax.swing.JButton();
         pnlLogin = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel40 = new javax.swing.JLabel();
@@ -698,7 +704,7 @@ public class MainWindow extends javax.swing.JFrame {
         btnCekPrinter.setName("cekPrinter"); // NOI18N
 
         btnRefreshData.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
-        btnRefreshData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/btn_img_printer.png"))); // NOI18N
+        btnRefreshData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/btn_img_refresh.png"))); // NOI18N
         btnRefreshData.setText("Refresh Data");
         btnRefreshData.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnRefreshData.setIconTextGap(10);
@@ -1429,14 +1435,14 @@ public class MainWindow extends javax.swing.JFrame {
             .addComponent(pnlHomeAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        pnlUploadNetto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         dtpTglPeriode.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
         dtpTglPeriode.setName("dtpTglPeriode"); // NOI18N
         dtpTglPeriode.setPreferredSize(new java.awt.Dimension(186, 28));
 
         jLabel35.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
-        jLabel35.setText("Upload data netto truk");
+        jLabel35.setText("Upload Data Netto Truk");
 
         jLabel36.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
         jLabel36.setText("Periode Analisa");
@@ -1452,33 +1458,33 @@ public class MainWindow extends javax.swing.JFrame {
         pgbNetto.setDoubleBuffered(true);
         pgbNetto.setName("pgbNetto"); // NOI18N
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlUploadNettoLayout = new javax.swing.GroupLayout(pnlUploadNetto);
+        pnlUploadNetto.setLayout(pnlUploadNettoLayout);
+        pnlUploadNettoLayout.setHorizontalGroup(
+            pnlUploadNettoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUploadNettoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlUploadNettoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlUploadNettoLayout.createSequentialGroup()
+                        .addGroup(pnlUploadNettoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel35)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addGroup(pnlUploadNettoLayout.createSequentialGroup()
                                 .addComponent(jLabel36)
                                 .addGap(34, 34, 34)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(pnlUploadNettoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnUploadNetto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(dtpTglPeriode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 77, Short.MAX_VALUE))
                     .addComponent(pgbNetto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+        pnlUploadNettoLayout.setVerticalGroup(
+            pnlUploadNettoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUploadNettoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel35)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlUploadNettoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel36)
                     .addComponent(dtpTglPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1488,7 +1494,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        pnlGantiPeriode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         dtpTglSetPeriode.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
         dtpTglSetPeriode.setName("dtpTglSetPeriode"); // NOI18N
@@ -1508,33 +1514,83 @@ public class MainWindow extends javax.swing.JFrame {
         btnGantiPeriode.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnGantiPeriode.setName("btnGantiPeriode"); // NOI18N
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlGantiPeriodeLayout = new javax.swing.GroupLayout(pnlGantiPeriode);
+        pnlGantiPeriode.setLayout(pnlGantiPeriodeLayout);
+        pnlGantiPeriodeLayout.setHorizontalGroup(
+            pnlGantiPeriodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlGantiPeriodeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlGantiPeriodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel37)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addGroup(pnlGantiPeriodeLayout.createSequentialGroup()
                         .addComponent(jLabel38)
                         .addGap(34, 34, 34)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnlGantiPeriodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnGantiPeriode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(dtpTglSetPeriode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(87, Short.MAX_VALUE))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+        pnlGantiPeriodeLayout.setVerticalGroup(
+            pnlGantiPeriodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlGantiPeriodeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel37)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlGantiPeriodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel38)
                     .addComponent(dtpTglSetPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGantiPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        pnlCetakLaporan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+
+        dtpCetakLaporan1.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
+        dtpCetakLaporan1.setName("dtpTglSetPeriode"); // NOI18N
+        dtpCetakLaporan1.setPreferredSize(new java.awt.Dimension(186, 28));
+
+        jLabel48.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
+        jLabel48.setText("Cetak Laporan Harian");
+
+        jLabel50.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
+        jLabel50.setText("Periode Analisa");
+
+        btnLapHar.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
+        btnLapHar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/btn_img_printer.png"))); // NOI18N
+        btnLapHar.setText("Laporan Harian");
+        btnLapHar.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnLapHar.setIconTextGap(10);
+        btnLapHar.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnLapHar.setName("btnLapHar"); // NOI18N
+
+        javax.swing.GroupLayout pnlCetakLaporanLayout = new javax.swing.GroupLayout(pnlCetakLaporan);
+        pnlCetakLaporan.setLayout(pnlCetakLaporanLayout);
+        pnlCetakLaporanLayout.setHorizontalGroup(
+            pnlCetakLaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCetakLaporanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlCetakLaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel48)
+                    .addGroup(pnlCetakLaporanLayout.createSequentialGroup()
+                        .addComponent(jLabel50)
+                        .addGap(34, 34, 34)
+                        .addGroup(pnlCetakLaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnLapHar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dtpCetakLaporan1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(87, Short.MAX_VALUE))
+        );
+        pnlCetakLaporanLayout.setVerticalGroup(
+            pnlCetakLaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCetakLaporanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel48)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlCetakLaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel50)
+                    .addComponent(dtpCetakLaporan1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLapHar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -1546,8 +1602,9 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(pnlAdminLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlUploadNetto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlGantiPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlCetakLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(1015, Short.MAX_VALUE))
         );
         pnlAdminLayout.setVerticalGroup(
@@ -1555,10 +1612,12 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(pnlAdminLayout.createSequentialGroup()
                 .addComponent(pnlIdTrukMenuAtas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlUploadNetto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 301, Short.MAX_VALUE))
+                .addComponent(pnlGantiPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlCetakLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 165, Short.MAX_VALUE))
         );
 
         pnlMainWindowBawah.add(pnlAdmin, "crdAdmin");
@@ -1731,6 +1790,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnCetakId;
     private javax.swing.JButton btnCrosscheckManual;
     private javax.swing.JButton btnGantiPeriode;
+    private javax.swing.JButton btnLapHar;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnManualId;
     private javax.swing.JButton btnRefreshData;
@@ -1739,6 +1799,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnTesBasah;
     private javax.swing.JButton btnTesKering;
     private javax.swing.JButton btnUploadNetto;
+    private org.jdesktop.swingx.JXDatePicker dtpCetakLaporan1;
     private org.jdesktop.swingx.JXDatePicker dtpMasukManual;
     private org.jdesktop.swingx.JXDatePicker dtpTglMasuk;
     private org.jdesktop.swingx.JXDatePicker dtpTglPeriode;
@@ -1789,8 +1850,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1799,8 +1862,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
@@ -1824,6 +1885,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JList<String> lstMonitoringSample;
     private javax.swing.JProgressBar pgbNetto;
     private javax.swing.JPanel pnlAdmin;
+    private javax.swing.JPanel pnlCetakLaporan;
+    private javax.swing.JPanel pnlGantiPeriode;
     private javax.swing.JPanel pnlHomeAdmin;
     private javax.swing.JPanel pnlHomeIdTruk;
     private javax.swing.JPanel pnlHomeNira;
@@ -1853,6 +1916,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel pnlNiraMenuAtas;
     private javax.swing.JPanel pnlSampelMonitorNira;
     private javax.swing.JPanel pnlSampleMonitor;
+    private javax.swing.JPanel pnlUploadNetto;
     private javax.swing.JPanel pnlXds;
     private javax.swing.JPanel pnlXdsMenuAtas;
     private javax.swing.JTextPane txpBarcode;
@@ -1966,5 +2030,9 @@ public class MainWindow extends javax.swing.JFrame {
 
     public JLabel getLblVersiSistem(){
         return lblVersiSistem;
+    }
+    
+    public JXDatePicker getDtpCetakLaporan1(){
+        return dtpCetakLaporan1;
     }
 }

@@ -8,13 +8,19 @@ package id.buma.cl.dao;
 import id.buma.cl.database.DbCoreSamplerConnectionManager;
 import id.buma.cl.model.SampelTebu;
 import id.buma.cl.view.MainWindow;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -638,7 +644,18 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
     @Override
     public void cetakLaporanHarian(java.sql.Date tglLaporan) {
         if (DbCoreSamplerConnectionManager.isConnect()){
-            //
+            try {
+                Connection con = DbCoreSamplerConnectionManager.getConnection();
+                String fileName = "DailyReport.jasper";
+                Map map = new HashMap();
+                map.put("TANGGAL", tglLaporan);
+                map.put("TANGGAL_BAWAH", new java.util.Date());
+                JasperPrint jp = JasperFillManager.fillReport(fileName, map, con);
+                JasperViewer.viewReport(jp, false);
+            } catch (Exception ex) {
+                Logger.getLogger(SampelTebuDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
     }
     
