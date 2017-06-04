@@ -54,4 +54,8 @@ public interface SampelTebuDAO {
     
     public void cetakLaporanHarian(java.sql.Date tglLaporan);
     
+    public void cetakLaporanHarianXls(java.sql.Date tglLaporan);
+    
+    public void cetakLaporanPeriode(java.sql.Date tglAwal, java.sql.Date tglAkhir);
+    
 }

@@ -52,6 +52,7 @@ import javax.print.attribute.HashAttributeSet;
 import javax.print.attribute.standard.PrinterName;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -100,7 +101,7 @@ public class CommonController implements MouseListener {
     public String statusNira; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.00.28052017.1558";
+    public String versiSistem = "Corelab v.1.00.04062017.2246";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
@@ -120,6 +121,9 @@ public class CommonController implements MouseListener {
     *   + Penambahan fitur cetak laporan harian (rakpitulasi)
     *   + Perbaikan monitoring sampel
     *   + Ganti icon untuk refresh data di monitoring sampel
+    * Corelab v.1.00.04062017.2246
+    *   + Penambahan fitur cetak laporan periodik
+    *   + Penambahan fitur export ke excel
     */
     
     public void setVersiSistem(){
@@ -856,6 +860,23 @@ public class CommonController implements MouseListener {
         }
     }
     
+    
+    public ActionListener actCheckBox(JCheckBox ckb){
+        String ckbName = ckb.getName();
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (ckbName.equals("ckbSampaiDengan")){
+                    if (ckb.isSelected()){
+                        mw.getDtpCetakLaporan2().setEnabled(true);
+                    } else {
+                        mw.getDtpCetakLaporan2().setEnabled(false);
+                    }
+                }
+            }
+        };
+    }
+    
     public ActionListener actButton(JButton btn){
         String btnName = btn.getName();
         return new ActionListener() {
@@ -899,9 +920,14 @@ public class CommonController implements MouseListener {
                     
                 }
                 if (btnName.equals("btnLapHar")){
-                    java.sql.Date tglLaporan = new java.sql.Date(mw.getDtpCetakLaporan1().getDate().getTime());
+                    java.sql.Date tglLaporan1 = new java.sql.Date(mw.getDtpCetakLaporan1().getDate().getTime());                   
                     if (userBaru.getKewenangan().equals("admin")){
-                        sampelTebuDao.cetakLaporanHarian(tglLaporan);                        
+                        if (mw.getCkbSampaiDengan().isSelected()){
+                            java.sql.Date tglLaporan2 = new java.sql.Date(mw.getDtpCetakLaporan2().getDate().getTime());
+                            sampelTebuDao.cetakLaporanPeriode(tglLaporan1, tglLaporan2);                    
+                        } else {
+                            sampelTebuDao.cetakLaporanHarian(tglLaporan1);
+                        }
                     }
                 }
                 if (btnName.equals("btnSimpanAmpas")){
@@ -912,8 +938,10 @@ public class CommonController implements MouseListener {
                     }
                 }
                 if (btnName.equals("btnUploadNetto")){
-                    java.sql.Date tglNetto = new java.sql.Date(mw.getDtpTglPeriode().getDate().getTime());
-                    uploadNettoTimbangan(tglNetto);
+                    if (userBaru.getKewenangan().equals("admin")){
+                        java.sql.Date tglNetto = new java.sql.Date(mw.getDtpTglPeriode().getDate().getTime());
+                        uploadNettoTimbangan(tglNetto);
+                    }
                 }
                 if (btnName.equals("btnGantiPeriode")){
                     setPeriodeAnalisa();

@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -646,9 +647,10 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
         if (DbCoreSamplerConnectionManager.isConnect()){
             try {
                 Connection con = DbCoreSamplerConnectionManager.getConnection();
-                String fileName = "DailyReport.jasper";
+                String fileName = "./reports/DailyReport.jasper";
                 Map map = new HashMap();
                 map.put("TANGGAL", tglLaporan);
+                map.put("TANGGAL_AWAL", tglLaporan);
                 map.put("TANGGAL_BAWAH", new java.util.Date());
                 JasperPrint jp = JasperFillManager.fillReport(fileName, map, con);
                 JasperViewer.viewReport(jp, false);
@@ -656,6 +658,42 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
                 Logger.getLogger(SampelTebuDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
             }
             
+        }
+    }
+
+    @Override
+    public void cetakLaporanHarianXls(java.sql.Date tglLaporan) {
+        if (DbCoreSamplerConnectionManager.isConnect()){
+            try {
+                Connection con = DbCoreSamplerConnectionManager.getConnection();
+                String fileName = "DailyReport.jasper";
+                Map map = new HashMap();
+                map.put("TANGGAL", tglLaporan);
+                map.put("TANGGAL_BAWAH", new java.util.Date());
+                JasperPrint jp = JasperFillManager.fillReport(fileName, map, con);
+                JRXlsExporter exporter = new JRXlsExporter();
+            } catch (Exception ex) {
+                Logger.getLogger(SampelTebuDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+    }
+
+    @Override
+    public void cetakLaporanPeriode(java.sql.Date tglAwal, java.sql.Date tglAkhir) {
+        if (DbCoreSamplerConnectionManager.isConnect()){
+            try {
+                Connection con = DbCoreSamplerConnectionManager.getConnection();
+                String fileName = "./reports/PeriodicReport.jasper";
+                Map map = new HashMap();
+                map.put("TANGGAL_AWAL", tglAwal);
+                map.put("TANGGAL_AKHIR", tglAkhir);
+                map.put("TANGGAL_BAWAH", new java.util.Date());
+                JasperPrint jp = JasperFillManager.fillReport(fileName, map, con);
+                JasperViewer.viewReport(jp, false);
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(mw, "Error cetakLaporanPeriode", "", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
     
