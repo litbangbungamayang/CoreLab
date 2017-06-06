@@ -5,14 +5,12 @@
  */
 package id.buma.cl.database;
 
-import id.buma.cl.controller.CommonController;
 import id.buma.cl.view.MainWindow;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *

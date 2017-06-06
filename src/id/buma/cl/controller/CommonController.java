@@ -101,7 +101,7 @@ public class CommonController implements MouseListener {
     public String statusNira; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.00.04062017.2246";
+    public String versiSistem = "Corelab v.1.00.07062017.0445";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
@@ -124,6 +124,9 @@ public class CommonController implements MouseListener {
     * Corelab v.1.00.04062017.2246
     *   + Penambahan fitur cetak laporan periodik
     *   + Penambahan fitur export ke excel
+    * Corelab v.1.00.07062017.0445
+    *   + Perbaikan status sampel DITOLAK menjadi RAFAKSI 50%
+    *   + Tambahan notifikasi apabila set periode analisa dilakukan dua kali
     */
     
     public void setVersiSistem(){
@@ -160,11 +163,15 @@ public class CommonController implements MouseListener {
     
     public void setPeriodeAnalisa(){
         java.sql.Date periodeBaru = new java.sql.Date(mw.getDtpTglSetPeriode().getDate().getTime());
-        if (idAnalisaDao.setPeriodeAnalisa(periodeBaru) && idAnalisaDao.resetNumeratorAnalisa()){
-            mw.getDtpTglMasuk().setDate(getPeriodeAnalisa());
-            mw.getDtpTglPeriode().setDate(getPeriodeAnalisa());
-            mw.getDtpTglSetPeriode().setDate(getPeriodeAnalisa());
-            JOptionPane.showMessageDialog(mw, "Periode Analisa berhasil diubah!", "", JOptionPane.INFORMATION_MESSAGE);
+        if (getPeriodeAnalisa().compareTo(periodeBaru) != 0){
+            if (idAnalisaDao.setPeriodeAnalisa(periodeBaru) && idAnalisaDao.resetNumeratorAnalisa()){
+                mw.getDtpTglMasuk().setDate(getPeriodeAnalisa());
+                mw.getDtpTglPeriode().setDate(getPeriodeAnalisa());
+                mw.getDtpTglSetPeriode().setDate(getPeriodeAnalisa());
+                JOptionPane.showMessageDialog(mw, "Periode Analisa berhasil diubah!", "", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(mw, "Periode analisa sudah diganti!", "", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -429,7 +436,7 @@ public class CommonController implements MouseListener {
                                 " dibawah standar!" + '\n' + "Sampel perlu diulang!", "", JOptionPane.ERROR_MESSAGE);
                         statusSampel = "BELUM ULANG";
                     } else {
-                        hasil = "CORE SAMPLER : DITOLAK! (RAFAKSI 50%)\n HK = " + hk;
+                        hasil = "CORE SAMPLER : RAFAKSI 50%; HK = " + hk;
                         statusSampel = "TOLAK";
                     }
                 }
@@ -457,16 +464,16 @@ public class CommonController implements MouseListener {
                         JOptionPane.showMessageDialog(mw, "HK1="+hk1+";HK2="+hk2+"HKr="+jmlHk);
                     */
                     if (jmlHk >= hkBatasBawah && jmlHk < hkBatasAtas){
-                        hasil = "CORE SAMPLER : LOLOS (RAFAKSI 30%) ;"+ "HK1 = " + hk1 +
+                        hasil = "CORE SAMPLER : RAFAKSI 30% ;"+ "HK1 = " + hk1 +
                                     "; HK2 = " + hk2 + "; Rata2 = " + jmlHk;
                         statusSampel = "RAFAKSI";
                     } else {
                         if (jmlHk > hkBatasAtas){
-                        hasil = "CORE SAMPLER : LOLOS ;" + "HK1 = " + hk1 + "; HK2 = " + hk2 + "; Rata2 = " + jmlHk;
+                        hasil = "CORE SAMPLER : MASUK ;" + "HK1 = " + hk1 + "; HK2 = " + hk2 + "; Rata2 = " + jmlHk;
                         statusSampel = "LOLOS";
                         } else {
                             if (jmlHk < hkBatasBawah){
-                                hasil = "CORE SAMPLER : DITOLAK! (RAFAKSI 50%)\n" + "HK1 = " + hk1 +
+                                hasil = "CORE SAMPLER : RAFAKSI 50%; " + "HK1 = " + hk1 +
                                         "; HK2 = " + hk2 + "; Rata2 = " + jmlHk;
                                 statusSampel = "TOLAK";
                             }
@@ -792,7 +799,7 @@ public class CommonController implements MouseListener {
                         getTrukDetail(numeratorSearch);
                     } else {
                         if (hkNum < hkBatasBawah){
-                            JOptionPane.showMessageDialog(mw, "Tebu DITOLAK!"+'\n'+
+                            JOptionPane.showMessageDialog(mw, "Tebu sudah dianalisa!"+'\n'+
                                     "HK sampel sebelumnya KURANG DARI 70!", "",
                                     JOptionPane.WARNING_MESSAGE);
                             resetLabel();
@@ -1043,7 +1050,7 @@ public class CommonController implements MouseListener {
                                     st.getNoTarra() + "] " + " Belum dicetak! [MASUK]";
                         } else {
                             return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
-                                    st.getNoTarra() + "] " + " Belum dicetak! HK = " + hkPertama + " [TOLAK]";
+                                    st.getNoTarra() + "] " + " Belum dicetak! HK = " + hkPertama + " [MASUK]";
                         }
                     }
                 } else {
@@ -1062,7 +1069,7 @@ public class CommonController implements MouseListener {
                         } else {
                             if (hkRataan < hkBatasBawah){
                                 return st.getNoAnalisa() + " [" + st.getNumerator() +
-                                "]" + " Belum dicetak! HK1="+hkPertama+"; HK2="+hkKedua+";HK Rata2 = " + hkRataan + " [TOLAK - RAFAKSI 50%]";
+                                "]" + " Belum dicetak! HK1="+hkPertama+"; HK2="+hkKedua+";HK Rata2 = " + hkRataan + " [MASUK]";
                             }
                         }                        
                     }
