@@ -52,7 +52,7 @@ public interface SampelTebuDAO {
     
     public boolean updateNetto(String numerator,int netto);
     
-    public void cetakLaporanHarian(java.sql.Date tglLaporan);
+    public void cetakLaporanHarian(java.sql.Date tglLaporan, String detailStatus);
     
     public void cetakLaporanHarianXls(java.sql.Date tglLaporan);
     

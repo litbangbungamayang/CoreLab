@@ -74,7 +74,7 @@ public class MainWindow extends javax.swing.JFrame {
         btnTesBasah.setVisible(false);
         btnTesKering.setVisible(false);
         lblAngkaTimbang.setVisible(false);
-        pgbNetto.setVisible(true);
+        pgbNetto.setVisible(false);
     }
     
     public void setTimerXds(){
@@ -127,6 +127,7 @@ public class MainWindow extends javax.swing.JFrame {
         btnRefreshData.addActionListener(commonController.actButton(btnRefreshData));
         btnLapHar.addActionListener(commonController.actButton(btnLapHar));
         ckbSampaiDengan.addActionListener(commonController.actCheckBox(ckbSampaiDengan));
+        ckbRincian.addActionListener(commonController.actCheckBox(ckbRincian));
     }
     
     /**
@@ -255,7 +256,6 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         btnUploadNetto = new javax.swing.JButton();
-        pgbNetto = new javax.swing.JProgressBar();
         pnlGantiPeriode = new javax.swing.JPanel();
         dtpTglSetPeriode = new org.jdesktop.swingx.JXDatePicker();
         jLabel37 = new javax.swing.JLabel();
@@ -268,6 +268,8 @@ public class MainWindow extends javax.swing.JFrame {
         btnLapHar = new javax.swing.JButton();
         dtpCetakLaporan2 = new org.jdesktop.swingx.JXDatePicker();
         ckbSampaiDengan = new javax.swing.JCheckBox();
+        ckbRincian = new javax.swing.JCheckBox();
+        pgbNetto = new javax.swing.JProgressBar();
         pnlLogin = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel40 = new javax.swing.JLabel();
@@ -1460,9 +1462,6 @@ public class MainWindow extends javax.swing.JFrame {
         btnUploadNetto.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnUploadNetto.setName("btnUploadNetto"); // NOI18N
 
-        pgbNetto.setDoubleBuffered(true);
-        pgbNetto.setName("pgbNetto"); // NOI18N
-
         javax.swing.GroupLayout pnlUploadNettoLayout = new javax.swing.GroupLayout(pnlUploadNetto);
         pnlUploadNetto.setLayout(pnlUploadNettoLayout);
         pnlUploadNettoLayout.setHorizontalGroup(
@@ -1470,18 +1469,14 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(pnlUploadNettoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlUploadNettoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel35)
                     .addGroup(pnlUploadNettoLayout.createSequentialGroup()
+                        .addComponent(jLabel36)
+                        .addGap(18, 18, 18)
                         .addGroup(pnlUploadNettoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel35)
-                            .addGroup(pnlUploadNettoLayout.createSequentialGroup()
-                                .addComponent(jLabel36)
-                                .addGap(18, 18, 18)
-                                .addGroup(pnlUploadNettoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnUploadNetto, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dtpTglPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 127, Short.MAX_VALUE))
-                    .addComponent(pgbNetto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                            .addComponent(btnUploadNetto, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dtpTglPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         pnlUploadNettoLayout.setVerticalGroup(
             pnlUploadNettoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1494,9 +1489,7 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(dtpTglPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUploadNetto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pgbNetto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pnlGantiPeriode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -1577,6 +1570,10 @@ public class MainWindow extends javax.swing.JFrame {
         ckbSampaiDengan.setText("sampai dengan");
         ckbSampaiDengan.setName("ckbSampaiDengan"); // NOI18N
 
+        ckbRincian.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        ckbRincian.setText("Terperinci");
+        ckbRincian.setName("ckbRincian"); // NOI18N
+
         javax.swing.GroupLayout pnlCetakLaporanLayout = new javax.swing.GroupLayout(pnlCetakLaporan);
         pnlCetakLaporan.setLayout(pnlCetakLaporanLayout);
         pnlCetakLaporanLayout.setHorizontalGroup(
@@ -1592,8 +1589,11 @@ public class MainWindow extends javax.swing.JFrame {
                             .addComponent(ckbSampaiDengan)
                             .addComponent(dtpCetakLaporan1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dtpCetakLaporan2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLapHar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(pnlCetakLaporanLayout.createSequentialGroup()
+                                .addComponent(btnLapHar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ckbRincian)))))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         pnlCetakLaporanLayout.setVerticalGroup(
             pnlCetakLaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1609,9 +1609,14 @@ public class MainWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dtpCetakLaporan2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLapHar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlCetakLaporanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLapHar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ckbRincian))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        pgbNetto.setDoubleBuffered(true);
+        pgbNetto.setName("pgbNetto"); // NOI18N
 
         javax.swing.GroupLayout pnlAdminLayout = new javax.swing.GroupLayout(pnlAdmin);
         pnlAdmin.setLayout(pnlAdminLayout);
@@ -1623,7 +1628,8 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlUploadNetto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlGantiPeriode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlCetakLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlCetakLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pgbNetto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(981, Short.MAX_VALUE))
         );
         pnlAdminLayout.setVerticalGroup(
@@ -1636,7 +1642,9 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(pnlGantiPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlCetakLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 118, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pgbNetto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 98, Short.MAX_VALUE))
         );
 
         pnlMainWindowBawah.add(pnlAdmin, "crdAdmin");
@@ -1818,6 +1826,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnTesBasah;
     private javax.swing.JButton btnTesKering;
     private javax.swing.JButton btnUploadNetto;
+    private javax.swing.JCheckBox ckbRincian;
     private javax.swing.JCheckBox ckbSampaiDengan;
     private org.jdesktop.swingx.JXDatePicker dtpCetakLaporan1;
     private org.jdesktop.swingx.JXDatePicker dtpCetakLaporan2;
@@ -2063,5 +2072,9 @@ public class MainWindow extends javax.swing.JFrame {
     
     public JCheckBox getCkbSampaiDengan(){
         return ckbSampaiDengan;
+    }
+    
+    public JCheckBox getCkbRincian(){
+        return ckbRincian;
     }
 }

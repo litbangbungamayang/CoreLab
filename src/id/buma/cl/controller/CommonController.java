@@ -101,7 +101,7 @@ public class CommonController implements MouseListener {
     public String statusNira; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.00.07062017.0445";
+    public String versiSistem = "Corelab v.1.00.09062017.0129";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
@@ -127,6 +127,9 @@ public class CommonController implements MouseListener {
     * Corelab v.1.00.07062017.0445
     *   + Perbaikan status sampel DITOLAK menjadi RAFAKSI 50%
     *   + Tambahan notifikasi apabila set periode analisa dilakukan dua kali
+    * Corelab v.1.00.09062017.0129
+    *   + Perbaikan login user
+    *   + Penambahan fitur cetak detail laporan harian
     */
     
     public void setVersiSistem(){
@@ -151,8 +154,12 @@ public class CommonController implements MouseListener {
         if (!mw.getTxtUsername().equals("") && !mw.getFtxtPassword().equals("")){
             userBaru = userLoginDao.getByUsername(mw.getTxtUsername().getText());
             if (userBaru != null){
-                pageSwitcher(mw.getPnlMainWindowBawah(), "crdMainMenu");
-                mw.getLblUsername().setText(userBaru.getNamaUser());
+                if (mw.getFtxtPassword().getText().equals(userBaru.getKataKunci())){
+                    pageSwitcher(mw.getPnlMainWindowBawah(), "crdMainMenu");
+                    mw.getLblUsername().setText(userBaru.getNamaUser());
+                } else {
+                    JOptionPane.showMessageDialog(mw, "Username atau password salah!", "", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(mw, "Username atau password salah!", "", JOptionPane.ERROR_MESSAGE);
             }
@@ -918,22 +925,22 @@ public class CommonController implements MouseListener {
                     }
                 }
                 if (btnName.equals("cekPrinter")){
-                    try {
-                        java.util.Date tglLaporan = mw.sqlDateFormat.parse("2017/05/26");
-                        sampelTebuDao.cetakLaporanHarian(new java.sql.Date(tglLaporan.getTime()));
-                    } catch (ParseException ex) {
-                        Logger.getLogger(CommonController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
                     
                 }
                 if (btnName.equals("btnLapHar")){
                     java.sql.Date tglLaporan1 = new java.sql.Date(mw.getDtpCetakLaporan1().getDate().getTime());                   
                     if (userBaru.getKewenangan().equals("admin")){
-                        if (mw.getCkbSampaiDengan().isSelected()){
+                        String detailStatus;
+                        if (mw.getCkbRincian().isSelected()){
+                            detailStatus = "YES";
+                        } else {
+                            detailStatus = "NO";
+                        }
+                        if (mw.getCkbSampaiDengan().isSelected()){                           
                             java.sql.Date tglLaporan2 = new java.sql.Date(mw.getDtpCetakLaporan2().getDate().getTime());
                             sampelTebuDao.cetakLaporanPeriode(tglLaporan1, tglLaporan2);                    
                         } else {
-                            sampelTebuDao.cetakLaporanHarian(tglLaporan1);
+                            sampelTebuDao.cetakLaporanHarian(tglLaporan1,detailStatus);
                         }
                     }
                 }
@@ -1021,10 +1028,12 @@ public class CommonController implements MouseListener {
                 versiSistem,
                 "N"
             );
+        /*
         if (sampelTebuDao.insertInputData(sampelBaru) == true){
             return true;
         }
-        return false;
+        */
+        return sampelTebuDao.insertInputData(sampelBaru);
     }
     
     public java.sql.Date getPeriodeAnalisa(){

@@ -643,7 +643,7 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
     }
 
     @Override
-    public void cetakLaporanHarian(java.sql.Date tglLaporan) {
+    public void cetakLaporanHarian(java.sql.Date tglLaporan, String detailStatus) {
         if (DbCoreSamplerConnectionManager.isConnect()){
             try {
                 Connection con = DbCoreSamplerConnectionManager.getConnection();
@@ -652,6 +652,7 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
                 map.put("TANGGAL", tglLaporan);
                 map.put("TANGGAL_AWAL", tglLaporan);
                 map.put("TANGGAL_BAWAH", new java.util.Date());
+                map.put("HIDE_DETAIL", detailStatus);
                 JasperPrint jp = JasperFillManager.fillReport(fileName, map, con);
                 JasperViewer.viewReport(jp, false);
             } catch (Exception ex) {

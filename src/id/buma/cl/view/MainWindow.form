@@ -2231,12 +2231,13 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="pnlIdTrukMenuAtas1" alignment="0" pref="1448" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="pnlUploadNetto" alignment="0" max="32767" attributes="0"/>
                           <Component id="pnlGantiPeriode" alignment="0" max="32767" attributes="0"/>
                           <Component id="pnlCetakLaporan" alignment="0" max="32767" attributes="0"/>
+                          <Component id="pgbNetto" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="981" max="32767" attributes="0"/>
                   </Group>
@@ -2252,7 +2253,9 @@
                       <Component id="pnlGantiPeriode" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="pnlCetakLaporan" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="118" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="pgbNetto" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="98" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -2354,23 +2357,17 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="btnUploadNetto" min="-2" pref="186" max="-2" attributes="0"/>
-                                              <Component id="dtpTglPeriode" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                                      <Component id="btnUploadNetto" min="-2" pref="186" max="-2" attributes="0"/>
+                                      <Component id="dtpTglPeriode" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="127" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="pgbNetto" alignment="1" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace pref="137" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2386,9 +2383,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnUploadNetto" min="-2" pref="32" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="pgbNetto" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace pref="31" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2436,12 +2431,6 @@
                       <Insets value="[0, 0, 0, 0]"/>
                     </Property>
                     <Property name="name" type="java.lang.String" value="btnUploadNetto" noResource="true"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JProgressBar" name="pgbNetto">
-                  <Properties>
-                    <Property name="doubleBuffered" type="boolean" value="true"/>
-                    <Property name="name" type="java.lang.String" value="pgbNetto" noResource="true"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -2566,11 +2555,15 @@
                                       <Component id="ckbSampaiDengan" min="-2" max="-2" attributes="0"/>
                                       <Component id="dtpCetakLaporan1" min="-2" max="-2" attributes="0"/>
                                       <Component id="dtpCetakLaporan2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnLapHar" alignment="0" min="-2" pref="186" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="btnLapHar" min="-2" pref="186" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="ckbRincian" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="46" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2589,7 +2582,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="dtpCetakLaporan2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnLapHar" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnLapHar" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="ckbRincian" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -2660,8 +2656,23 @@
                     <Property name="name" type="java.lang.String" value="ckbSampaiDengan" noResource="true"/>
                   </Properties>
                 </Component>
+                <Component class="javax.swing.JCheckBox" name="ckbRincian">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Open Sans" size="12" style="0"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Terperinci"/>
+                    <Property name="name" type="java.lang.String" value="ckbRincian" noResource="true"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JProgressBar" name="pgbNetto">
+              <Properties>
+                <Property name="doubleBuffered" type="boolean" value="true"/>
+                <Property name="name" type="java.lang.String" value="pgbNetto" noResource="true"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="pnlLogin">
