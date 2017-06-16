@@ -101,7 +101,7 @@ public class CommonController implements MouseListener {
     public String statusNira; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.00.09062017.0129";
+    public String versiSistem = "Corelab v.1.00.16062017.0533";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
@@ -130,6 +130,8 @@ public class CommonController implements MouseListener {
     * Corelab v.1.00.09062017.0129
     *   + Perbaikan login user
     *   + Penambahan fitur cetak detail laporan harian
+    * Corelab v.1.00.16062017.0533
+    *   + Penambahan numerator saat cetak hasil analisa
     */
     
     public void setVersiSistem(){
@@ -434,16 +436,16 @@ public class CommonController implements MouseListener {
             if (tglData.compareTo(kompTgl) != 0){
                 hk = arCetakSampel.get(0).getHk();
                 if (hk >= hkBatasAtas){
-                    hasil = "CORE SAMPLER : LOLOS";
+                    hasil = numerator + "; CORE SAMPLER : LOLOS";
                     statusSampel = "LOLOS";
                 } else {
                     if ((hk < hkBatasAtas) && (hk >= hkBatasBawah)){
-                        hasil = "CORE SAMPLER : HK="+ hk + ". SAMPEL ULANG!";
+                        hasil = numerator + "; CORE SAMPLER : HK="+ hk + "; SAMPEL ULANG!";
                         JOptionPane.showMessageDialog(mw, "HK sampel = " + hk +
                                 " dibawah standar!" + '\n' + "Sampel perlu diulang!", "", JOptionPane.ERROR_MESSAGE);
                         statusSampel = "BELUM ULANG";
                     } else {
-                        hasil = "CORE SAMPLER : RAFAKSI 50%; HK = " + hk;
+                        hasil = numerator + "; CORE SAMPLER : RAFAKSI 50%; HK=" + hk;
                         statusSampel = "TOLAK";
                     }
                 }
@@ -471,17 +473,17 @@ public class CommonController implements MouseListener {
                         JOptionPane.showMessageDialog(mw, "HK1="+hk1+";HK2="+hk2+"HKr="+jmlHk);
                     */
                     if (jmlHk >= hkBatasBawah && jmlHk < hkBatasAtas){
-                        hasil = "CORE SAMPLER : RAFAKSI 30% ;"+ "HK1 = " + hk1 +
-                                    "; HK2 = " + hk2 + "; Rata2 = " + jmlHk;
+                        hasil = numerator + "; CORE SAMPLER : RAFAKSI 30%;"+ "HK1=" + hk1 +
+                                    "; HK2=" + hk2 + "; Rata2=" + jmlHk;
                         statusSampel = "RAFAKSI";
                     } else {
                         if (jmlHk > hkBatasAtas){
-                        hasil = "CORE SAMPLER : MASUK ;" + "HK1 = " + hk1 + "; HK2 = " + hk2 + "; Rata2 = " + jmlHk;
+                        hasil = "CORE SAMPLER : MASUK ;" + "HK1=" + hk1 + "; HK2=" + hk2 + "; Rata2=" + jmlHk;
                         statusSampel = "LOLOS";
                         } else {
                             if (jmlHk < hkBatasBawah){
-                                hasil = "CORE SAMPLER : RAFAKSI 50%; " + "HK1 = " + hk1 +
-                                        "; HK2 = " + hk2 + "; Rata2 = " + jmlHk;
+                                hasil = numerator + "; CORE SAMPLER : RAFAKSI 50%; " + "HK1=" + hk1 +
+                                        "; HK2=" + hk2 + "; Rata2=" + jmlHk;
                                 statusSampel = "TOLAK";
                             }
                         }
@@ -497,10 +499,9 @@ public class CommonController implements MouseListener {
         StyledDocument doc = mw.getTxpBarcode().getStyledDocument();
         Style style = mw.getTxpBarcode().addStyle("statusHasil", null);
         StyleConstants.setFontFamily(style, "Consolas");
-        StyleConstants.setFontSize(style, 16);
+        StyleConstants.setFontSize(style, 13);
         try {
-            doc.insertString(doc.getLength(), hasil, style);
-            
+            doc.insertString(doc.getLength(), hasil, style);           
             try {
                 if (cetakLabel("PRINTER DO") == true){
                     simpanStatusSampel(numerator, statusSampel);
