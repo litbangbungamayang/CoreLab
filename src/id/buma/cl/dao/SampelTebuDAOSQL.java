@@ -6,7 +6,9 @@
 package id.buma.cl.dao;
 
 import id.buma.cl.database.DbCoreSamplerConnectionManager;
+import id.buma.cl.database.DbTimbanganConnectionManager;
 import id.buma.cl.model.SampelTebu;
+import id.buma.cl.model.TrukRafaksi;
 import id.buma.cl.view.MainWindow;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,6 +31,7 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class SampelTebuDAOSQL implements SampelTebuDAO{
     private MainWindow mw;
+    private TrukTebuDAOSQL trukTebuDao = new TrukTebuDAOSQL();
     
     @Override
     public List<SampelTebu> getAllSampelTebu() {
@@ -643,7 +646,7 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
     }
 
     @Override
-    public void cetakLaporanHarian(java.sql.Date tglLaporan, String detailStatus) {
+    public void cetakLaporanHarian(java.sql.Date tglLaporan, String detailStatus, Double totalRafaksi) {
         if (DbCoreSamplerConnectionManager.isConnect()){
             try {
                 Connection con = DbCoreSamplerConnectionManager.getConnection();
@@ -653,6 +656,7 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
                 map.put("TANGGAL_AWAL", tglLaporan);
                 map.put("TANGGAL_BAWAH", new java.util.Date());
                 map.put("HIDE_DETAIL", detailStatus);
+                map.put("TOTAL_RAFAKSI", totalRafaksi);
                 JasperPrint jp = JasperFillManager.fillReport(fileName, map, con);
                 JasperViewer.viewReport(jp, false);
             } catch (Exception ex) {
@@ -696,6 +700,62 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
                 JOptionPane.showMessageDialog(mw, "Error cetakLaporanPeriode", "", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+
+    @Override
+    public boolean getAllRafaksi(Date periode) {
+        String sql = "SELECT * FROM TBL_RAFAKSI_CS WHERE PERIODE=?";
+        List<TrukRafaksi> trukRafaksi = new ArrayList<>();
+        try {
+            if (DbTimbanganConnectionManager.isConnect() == true){
+                PreparedStatement ps = DbTimbanganConnectionManager.getConnection().prepareStatement(sql);
+                ps.setDate(1, new java.sql.Date(periode.getTime()));
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()){
+                    TrukRafaksi tr = new TrukRafaksi(
+                            rs.getString("NUMERATOR"),
+                            rs.getDouble("JENIS_RAFAKSI"),
+                            rs.getDate("PERIODE")
+                    );
+                    trukRafaksi.add(tr);
+                }
+                sql = "UPDATE TBL_RAFAKSI_CS SET KW_RAFAKSI=? WHERE NUMERATOR=?";
+                ps = DbTimbanganConnectionManager.getConnection().prepareStatement(sql);
+                for (TrukRafaksi tr : trukRafaksi){
+                    ps.setDouble(1, tr.getJenisRafaksi()*trukTebuDao.getNettoTruk(tr.getNumerator()));
+                    ps.setString(2, tr.getNumerator());
+                    ps.executeUpdate();
+                }
+                return true;
+            } else {
+                //TODO : kasih message/indikator
+            }
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(mw, "Error getAllRafaksi!"+
+                    '\n'+"Error code : "+ex.toString(), "Error Get Data", JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
+    }
+
+    @Override
+    public Double getTotalRafaksi(Date periode) {
+        String sql = "SELECT SUM(KW_RAFAKSI) AS TOTAL FROM TBL_RAFAKSI_CS WHERE PERIODE=?";
+        Double totalRafaksi = 0.0;
+        try{
+            if (DbTimbanganConnectionManager.isConnect() == true){
+                PreparedStatement ps = DbTimbanganConnectionManager.getConnection().prepareStatement(sql);
+                ps.setDate(1, new java.sql.Date(periode.getTime()));
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()){
+                    totalRafaksi = rs.getDouble("TOTAL")/10;
+                }
+                return totalRafaksi;
+            }
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(mw, "Error getAllRafaksi!"+
+                    '\n'+"Error code : "+ex.toString(), "Error Get Data", JOptionPane.ERROR_MESSAGE);
+        }
+        return totalRafaksi;
     }
     
 }

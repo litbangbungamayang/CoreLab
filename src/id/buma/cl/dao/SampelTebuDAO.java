@@ -26,6 +26,10 @@ public interface SampelTebuDAO {
            
     public List<SampelTebu> getAllSampelTebu();
     
+    public boolean getAllRafaksi(java.util.Date periode);
+    
+    public Double getTotalRafaksi(java.util.Date periode);
+    
     public List<SampelTebu> getByIdAnalisa(String idAnalisa);
     
     public List<SampelTebu> getByIdPetani(String idPetani);
@@ -52,10 +56,11 @@ public interface SampelTebuDAO {
     
     public boolean updateNetto(String numerator,int netto);
     
-    public void cetakLaporanHarian(java.sql.Date tglLaporan, String detailStatus);
+    public void cetakLaporanHarian(java.sql.Date tglLaporan, String detailStatus, Double totalRafaksi);
     
     public void cetakLaporanHarianXls(java.sql.Date tglLaporan);
     
     public void cetakLaporanPeriode(java.sql.Date tglAwal, java.sql.Date tglAkhir);
+    
     
 }

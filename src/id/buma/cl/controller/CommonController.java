@@ -101,7 +101,7 @@ public class CommonController implements MouseListener {
     public String statusNira; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.00.16062017.0533";
+    public String versiSistem = "Corelab v.1.00.21062017.0351";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
@@ -132,6 +132,8 @@ public class CommonController implements MouseListener {
     *   + Penambahan fitur cetak detail laporan harian
     * Corelab v.1.00.16062017.0533
     *   + Penambahan numerator saat cetak hasil analisa
+    * Corelab v.1.00.21062017.0351
+    *   + Penambahan laporan rafaksi hari ini
     */
     
     public void setVersiSistem(){
@@ -146,6 +148,13 @@ public class CommonController implements MouseListener {
         }
         mw.setCursor(null);
         JOptionPane.showMessageDialog(mw, "Netto sudah terupdate!", "", JOptionPane.INFORMATION_MESSAGE);
+        mw.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        if (sampelTebuDao.getAllRafaksi(tglPeriode) == true){
+            JOptionPane.showMessageDialog(mw, "Data rafaksi sudah diupdate!");
+        } else {
+            JOptionPane.showMessageDialog(mw, "Data rafaksi gagal diupdate!");
+        }
+        mw.setCursor(null);
     }
     
     public void setProgressValue(int progressValue){
@@ -941,7 +950,7 @@ public class CommonController implements MouseListener {
                             java.sql.Date tglLaporan2 = new java.sql.Date(mw.getDtpCetakLaporan2().getDate().getTime());
                             sampelTebuDao.cetakLaporanPeriode(tglLaporan1, tglLaporan2);                    
                         } else {
-                            sampelTebuDao.cetakLaporanHarian(tglLaporan1,detailStatus);
+                            sampelTebuDao.cetakLaporanHarian(tglLaporan1,detailStatus, sampelTebuDao.getTotalRafaksi(tglLaporan1));
                         }
                     }
                 }
