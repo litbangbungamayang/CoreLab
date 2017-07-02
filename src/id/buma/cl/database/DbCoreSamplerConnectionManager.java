@@ -26,13 +26,13 @@ public class DbCoreSamplerConnectionManager {
             try {
                 //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");//NOT NEEDED as in the JDBC API 4.0, the DriverManager.getConnection method is enhanced to load JDBC drivers automatically. (https://docs.microsoft.com/en-us/sql/connect/jdbc/using-the-jdbc-driver)
 
-                String conStringLokal = "jdbc:sqlserver://LOCALHOST\\X230_SRV:1433;"+
+                String cLokal = "jdbc:sqlserver://LOCALHOST\\X230_SRV:1433;"+
                                         "databaseName=BUMA;user=prod;password=prod;";
                 
-                String conStringLive = "jdbc:sqlserver://192.168.39.135:1433;"+
+                String cLive = "jdbc:sqlserver://192.168.39.135:1433;"+
                                    "databaseName=BUMA;user=prod;password=prod;";
                 
-                connection = DriverManager.getConnection(conStringLive);
+                connection = DriverManager.getConnection(cLive);
             } catch (SQLException e) {
                 return null;
             }

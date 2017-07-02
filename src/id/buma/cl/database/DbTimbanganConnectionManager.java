@@ -24,13 +24,13 @@ public class DbTimbanganConnectionManager {
             try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");//NOT NEEDED as in the JDBC API 4.0, the DriverManager.getConnection method is enhanced to load JDBC drivers automatically. (https://docs.microsoft.com/en-us/sql/connect/jdbc/using-the-jdbc-driver)
                 
-                String conStringLive = "jdbc:jtds:sqlserver://192.168.39.100:1433;"+
+                String cLive = "jdbc:jtds:sqlserver://192.168.39.100:1433;"+
                                    "databaseName=SugarCaneDb;user=prod;password=prod;";
                 
-                String conStringLokal = "jdbc:sqlserver://LOCALHOST\\X230_SRV:1433;"+
+                String cLokal = "jdbc:sqlserver://LOCALHOST\\X230_SRV:1433;"+
                                    "databaseName=SugarCaneDb;user=prod;password=prod;";
 
-                connection = DriverManager.getConnection(conStringLive);
+                connection = DriverManager.getConnection(cLive);
                 
             } catch (ClassNotFoundException | SQLException e) {
                 return null;

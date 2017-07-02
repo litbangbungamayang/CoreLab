@@ -83,8 +83,8 @@ public class CommonController implements MouseListener {
     private UserLoginDAO userLoginDao = new UserLoginDAOSQL();
     public double hkBatasBawah = 70.0;
     public double hkBatasAtas = 74.0;
-    public double rafaksi1 = 0.30;
-    public double rafaksi2 = 0.50;
+    public double rafaksi1 = 0.15;
+    public double rafaksi2 = 0.30;
     public List<TrukTebu> arTrukTebu = new ArrayList<>();
     public List<SampelTebu> totalSampel;
     public List<SampelTebu> arCetakSampel;
@@ -101,7 +101,7 @@ public class CommonController implements MouseListener {
     public String statusNira; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.00.21062017.0351";
+    public String versiSistem = "Corelab v.1.01.02072017.2318";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
@@ -134,6 +134,9 @@ public class CommonController implements MouseListener {
     *   + Penambahan numerator saat cetak hasil analisa
     * Corelab v.1.00.21062017.0351
     *   + Penambahan laporan rafaksi hari ini
+    * Corelab v.1.01.02072017.2318
+    *   + REVISI MAYOR
+    *   + Perubahan aturan rafaksi, HK < 70 rafaksi 30%, 70<= HK < 74 rafaksi 15% tidak perlu diulang
     */
     
     public void setVersiSistem(){
@@ -445,16 +448,14 @@ public class CommonController implements MouseListener {
             if (tglData.compareTo(kompTgl) != 0){
                 hk = arCetakSampel.get(0).getHk();
                 if (hk >= hkBatasAtas){
-                    hasil = numerator + "; CORE SAMPLER : LOLOS";
+                    hasil = numerator + "; CORE SAMPLER : OK";
                     statusSampel = "LOLOS";
                 } else {
                     if ((hk < hkBatasAtas) && (hk >= hkBatasBawah)){
-                        hasil = numerator + "; CORE SAMPLER : HK="+ hk + "; SAMPEL ULANG!";
-                        JOptionPane.showMessageDialog(mw, "HK sampel = " + hk +
-                                " dibawah standar!" + '\n' + "Sampel perlu diulang!", "", JOptionPane.ERROR_MESSAGE);
-                        statusSampel = "BELUM ULANG";
+                        hasil = numerator + "; CORE SAMPLER : HK="+ hk + "; RAFAKSI 15%";
+                        statusSampel = "RAFAKSI";
                     } else {
-                        hasil = numerator + "; CORE SAMPLER : RAFAKSI 50%; HK=" + hk;
+                        hasil = numerator + "; CORE SAMPLER : HK="+ hk + "; RAFAKSI 30%";
                         statusSampel = "TOLAK";
                     }
                 }
@@ -462,46 +463,6 @@ public class CommonController implements MouseListener {
                 JOptionPane.showMessageDialog(mw, "Hasil analisa belum tersedia!", "Error Cetak Hasil", JOptionPane.ERROR_MESSAGE);
                 mw.getTxpBarcode().setText("");
                 statusSampel = "BELUM";
-            }
-        } else {
-            if (arCetakSampel.size() == 2){
-                tglData = arCetakSampel.get(1).getTgl_xds();
-                if (tglData.compareTo(kompTgl) != 0){
-                    for (SampelTebu sampelTebu : arCetakSampel) {
-                        switch(sampelTebu.getSeqNo()){
-                            case 1:
-                                hk1 = sampelTebu.getHk();
-                                break;
-                            case 2:
-                                hk2 = sampelTebu.getHk();
-                                break;
-                        }
-                    }
-                    jmlHk = (hk1 + hk2)/2;
-                    /*
-                        JOptionPane.showMessageDialog(mw, "HK1="+hk1+";HK2="+hk2+"HKr="+jmlHk);
-                    */
-                    if (jmlHk >= hkBatasBawah && jmlHk < hkBatasAtas){
-                        hasil = numerator + "; CORE SAMPLER : RAFAKSI 30%;"+ "HK1=" + hk1 +
-                                    "; HK2=" + hk2 + "; Rata2=" + jmlHk;
-                        statusSampel = "RAFAKSI";
-                    } else {
-                        if (jmlHk > hkBatasAtas){
-                        hasil = "CORE SAMPLER : MASUK ;" + "HK1=" + hk1 + "; HK2=" + hk2 + "; Rata2=" + jmlHk;
-                        statusSampel = "LOLOS";
-                        } else {
-                            if (jmlHk < hkBatasBawah){
-                                hasil = numerator + "; CORE SAMPLER : RAFAKSI 50%; " + "HK1=" + hk1 +
-                                        "; HK2=" + hk2 + "; Rata2=" + jmlHk;
-                                statusSampel = "TOLAK";
-                            }
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(mw, "Hasil analisa belum tersedia!", "Error Cetak Hasil", JOptionPane.ERROR_MESSAGE);
-                    mw.getTxpBarcode().setText("");
-                    statusSampel = "BELUM";
-                }
             }
         }
         mw.getTxpBarcode().setText("");
@@ -808,33 +769,8 @@ public class CommonController implements MouseListener {
         if (seqNo == 0){
             getTrukDetail(numeratorSearch);
         } else {
-            if (seqNo == 1){
-                java.util.Date tglXds = sampelTebuDao.getSampelByNumerator(numeratorSearch).getTgl_xds();
-                if (tglXds.compareTo(mw.sqlDateFormat.parse("1900/01/01")) != 0){
-                hkNum = sampelTebuDao.getHkSampelByNumerator(numeratorSearch);
-                    if ((hkNum >= hkBatasBawah) && (hkNum < hkBatasAtas)){
-                        getTrukDetail(numeratorSearch);
-                    } else {
-                        if (hkNum < hkBatasBawah){
-                            JOptionPane.showMessageDialog(mw, "Tebu sudah dianalisa!"+'\n'+
-                                    "HK sampel sebelumnya KURANG DARI 70!", "",
-                                    JOptionPane.WARNING_MESSAGE);
-                            resetLabel();
-                        }
-                        if (hkNum >= hkBatasAtas){
-                            JOptionPane.showMessageDialog(mw, "Sampel TIDAK PERLU DIULANG!", "",
-                                    JOptionPane.WARNING_MESSAGE);
-                            resetLabel();
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(mw, "Hasil analisa belum tersedia!", "", JOptionPane.ERROR_MESSAGE);
-                    resetLabel();
-                }
-            } else {
-                JOptionPane.showMessageDialog(mw, "Sampel TIDAK BOLEH LEBIH DARI 2!", "", JOptionPane.WARNING_MESSAGE);
-                resetLabel();
-            }
+            JOptionPane.showMessageDialog(mw, "Sampel TIDAK PERLU DIULANG!", 
+                    "Error Input", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -1062,7 +998,7 @@ public class CommonController implements MouseListener {
                     hkPertama = st.getHk();
                     if ((hkPertama >= hkBatasBawah) && (hkPertama < hkBatasAtas)){
                         return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
-                                st.getNoTarra() + "] " + " Belum dicetak! HK = " + hkPertama + " [ULANG]";
+                                st.getNoTarra() + "] " + " Belum dicetak! HK = " + hkPertama + " [MASUK]";
                     } else {
                         if (hkPertama >= hkBatasAtas){
                             return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
@@ -1071,26 +1007,6 @@ public class CommonController implements MouseListener {
                             return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
                                     st.getNoTarra() + "] " + " Belum dicetak! HK = " + hkPertama + " [MASUK]";
                         }
-                    }
-                } else {
-                    hkPertama = sampelTebuDao.getHkSampelByNumerator(st.getNumerator());
-                    hkKedua = st.getHk();
-                    hkRataan = (hkPertama + hkKedua)/2;
-                    if (hkRataan >= hkBatasBawah && hkRataan < hkBatasAtas){
-                        return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
-                                st.getNoTarra() + "] " + " Belum dicetak! HK Rata2 = " + hkRataan +
-                                " [MASUK - RAFAKSI 30%]";
-                    } else {
-                        if (hkRataan > hkBatasAtas){
-                            return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
-                                    st.getNoTarra() + "] " + "Belum dicetak! HK Rata2 = " + hkRataan +
-                                    " [LOLOS]";
-                        } else {
-                            if (hkRataan < hkBatasBawah){
-                                return st.getNoAnalisa() + " [" + st.getNumerator() +
-                                "]" + " Belum dicetak! HK1="+hkPertama+"; HK2="+hkKedua+";HK Rata2 = " + hkRataan + " [MASUK]";
-                            }
-                        }                        
                     }
                 }
             }
