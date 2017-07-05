@@ -101,7 +101,7 @@ public class CommonController implements MouseListener {
     public String statusNira; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.01.02072017.2318";
+    public String versiSistem = "Corelab v.1.01.06072017.0423";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
@@ -137,6 +137,9 @@ public class CommonController implements MouseListener {
     * Corelab v.1.01.02072017.2318
     *   + REVISI MAYOR
     *   + Perubahan aturan rafaksi, HK < 70 rafaksi 30%, 70<= HK < 74 rafaksi 15% tidak perlu diulang
+    * Corelab v.1.01.06072017.0423
+    *   + Perubahan pencetakan hasil analisa, semula dicetak di DO, sekarang ditiadakan
+    *
     */
     
     public void setVersiSistem(){
@@ -454,17 +457,20 @@ public class CommonController implements MouseListener {
                     if ((hk < hkBatasAtas) && (hk >= hkBatasBawah)){
                         hasil = numerator + "; CORE SAMPLER : HK="+ hk + "; RAFAKSI 15%";
                         statusSampel = "RAFAKSI";
-                    } else {
+                    } else if (hk < hkBatasBawah){
                         hasil = numerator + "; CORE SAMPLER : HK="+ hk + "; RAFAKSI 30%";
                         statusSampel = "TOLAK";
                     }
                 }
+                simpanStatusSampel(numerator, statusSampel);
+                refreshStatusPanel("TRUK");
             } else {
-                JOptionPane.showMessageDialog(mw, "Hasil analisa belum tersedia!", "Error Cetak Hasil", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(mw, "Hasil analisa belum tersedia!", "Error Update Hasil", JOptionPane.ERROR_MESSAGE);
                 mw.getTxpBarcode().setText("");
                 statusSampel = "BELUM";
             }
         }
+        /*
         mw.getTxpBarcode().setText("");
         StyledDocument doc = mw.getTxpBarcode().getStyledDocument();
         Style style = mw.getTxpBarcode().addStyle("statusHasil", null);
@@ -484,6 +490,8 @@ public class CommonController implements MouseListener {
         } catch (BadLocationException ex) {
             Logger.getLogger(CommonController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
+        
     }
     
     public void generateIdAnalisa() throws ParseException {
@@ -998,14 +1006,14 @@ public class CommonController implements MouseListener {
                     hkPertama = st.getHk();
                     if ((hkPertama >= hkBatasBawah) && (hkPertama < hkBatasAtas)){
                         return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
-                                st.getNoTarra() + "] " + " Belum dicetak! HK = " + hkPertama + " [MASUK]";
+                                st.getNoTarra() + "] " + " BELUM DIUPDATE! HK = " + hkPertama;
                     } else {
                         if (hkPertama >= hkBatasAtas){
                             return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
-                                    st.getNoTarra() + "] " + " Belum dicetak! [MASUK]";
+                                    st.getNoTarra() + "] " + " BELUM DIUPDATE!";
                         } else {
                             return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
-                                    st.getNoTarra() + "] " + " Belum dicetak! HK = " + hkPertama + " [MASUK]";
+                                    st.getNoTarra() + "] " + " BELUM DIUPDATE! HK = " + hkPertama;
                         }
                     }
                 }

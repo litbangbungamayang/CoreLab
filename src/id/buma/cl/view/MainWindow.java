@@ -690,7 +690,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         btnCetakHasilAnalisa.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
         btnCetakHasilAnalisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/btn_img_printer.png"))); // NOI18N
-        btnCetakHasilAnalisa.setText("Cetak hasil analisa");
+        btnCetakHasilAnalisa.setText("Update Data Truk");
         btnCetakHasilAnalisa.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnCetakHasilAnalisa.setIconTextGap(10);
         btnCetakHasilAnalisa.setMargin(new java.awt.Insets(0, 0, 0, 0));
