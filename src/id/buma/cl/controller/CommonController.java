@@ -99,9 +99,10 @@ public class CommonController implements MouseListener {
     public double hkPertama,hkKedua,hkRataan; //variabel umum, nilainya berubah2
     public String statusSampel; //variabel umum, nilainya berubah2
     public String statusNira; //variabel umum, nilainya berubah2
+    public String systemOverrideStatus = "N"; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.01.06072017.0423";
+    public String versiSistem = "Corelab v.1.01.08072017.0606";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
@@ -139,7 +140,9 @@ public class CommonController implements MouseListener {
     *   + Perubahan aturan rafaksi, HK < 70 rafaksi 30%, 70<= HK < 74 rafaksi 15% tidak perlu diulang
     * Corelab v.1.01.06072017.0423
     *   + Perubahan pencetakan hasil analisa, semula dicetak di DO, sekarang ditiadakan
-    *
+    * Corelab v.1.01.08072017.0606
+    *   + Rencana penambahan override sistem (blm selesai)
+    *   + Penghapusan tampilan HK di layar monitor sampel
     */
     
     public void setVersiSistem(){
@@ -494,6 +497,10 @@ public class CommonController implements MouseListener {
         
     }
     
+    public void overrideHasilAnalisa(String idAnalisa){
+        
+    }
+    
     public void generateIdAnalisa() throws ParseException {
         DateFormat tglPeriode = new SimpleDateFormat("ddMMyyyy");
         String tglPeriodeId = tglPeriode.format(getPeriodeAnalisa());
@@ -840,6 +847,15 @@ public class CommonController implements MouseListener {
                     } else {
                         mw.getDtpCetakLaporan2().setEnabled(false);
                     }
+                } else
+                if (ckbName.equals("ckbSystemOverride")){
+                    if (userBaru.getKewenangan().equals("admin")){
+                        if (ckb.isSelected()){
+                            systemOverrideStatus = "Y";
+                        } else {
+                            systemOverrideStatus = "N";
+                        }
+                    }
                 }
             }
         };
@@ -1006,14 +1022,14 @@ public class CommonController implements MouseListener {
                     hkPertama = st.getHk();
                     if ((hkPertama >= hkBatasBawah) && (hkPertama < hkBatasAtas)){
                         return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
-                                st.getNoTarra() + "] " + " BELUM DIUPDATE! HK = " + hkPertama;
+                                st.getNoTarra() + "] " + " BELUM DIUPDATE!";
                     } else {
                         if (hkPertama >= hkBatasAtas){
                             return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
                                     st.getNoTarra() + "] " + " BELUM DIUPDATE!";
                         } else {
                             return st.getNoAnalisa() + " [" + st.getNumerator() + "] [" +
-                                    st.getNoTarra() + "] " + " BELUM DIUPDATE! HK = " + hkPertama;
+                                    st.getNoTarra() + "] " + " BELUM DIUPDATE!";
                         }
                     }
                 }

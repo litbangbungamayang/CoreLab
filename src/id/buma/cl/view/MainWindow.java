@@ -26,7 +26,7 @@ import org.jdesktop.swingx.JXDatePicker;
  *
  * @author Bayu Anandavi Muhardika
  */
-public class MainWindow extends javax.swing.JFrame {
+public final class MainWindow extends javax.swing.JFrame {
 
     
     private CommonController commonController = new CommonController(this);
@@ -128,6 +128,7 @@ public class MainWindow extends javax.swing.JFrame {
         btnLapHar.addActionListener(commonController.actButton(btnLapHar));
         ckbSampaiDengan.addActionListener(commonController.actCheckBox(ckbSampaiDengan));
         ckbRincian.addActionListener(commonController.actCheckBox(ckbRincian));
+        ckbSystemOverride.addActionListener(commonController.actCheckBox(ckbSystemOverride));
     }
     
     /**
@@ -270,6 +271,7 @@ public class MainWindow extends javax.swing.JFrame {
         ckbSampaiDengan = new javax.swing.JCheckBox();
         ckbRincian = new javax.swing.JCheckBox();
         pgbNetto = new javax.swing.JProgressBar();
+        ckbSystemOverride = new javax.swing.JCheckBox();
         pnlLogin = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel40 = new javax.swing.JLabel();
@@ -1618,6 +1620,10 @@ public class MainWindow extends javax.swing.JFrame {
         pgbNetto.setDoubleBuffered(true);
         pgbNetto.setName("pgbNetto"); // NOI18N
 
+        ckbSystemOverride.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        ckbSystemOverride.setText("System override");
+        ckbSystemOverride.setName("ckbSystemOverride"); // NOI18N
+
         javax.swing.GroupLayout pnlAdminLayout = new javax.swing.GroupLayout(pnlAdmin);
         pnlAdmin.setLayout(pnlAdminLayout);
         pnlAdminLayout.setHorizontalGroup(
@@ -1625,11 +1631,13 @@ public class MainWindow extends javax.swing.JFrame {
             .addComponent(pnlIdTrukMenuAtas1, javax.swing.GroupLayout.DEFAULT_SIZE, 1448, Short.MAX_VALUE)
             .addGroup(pnlAdminLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlUploadNetto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlGantiPeriode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlCetakLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pgbNetto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ckbSystemOverride)
+                    .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(pnlUploadNetto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlGantiPeriode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlCetakLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pgbNetto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(981, Short.MAX_VALUE))
         );
         pnlAdminLayout.setVerticalGroup(
@@ -1644,7 +1652,9 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(pnlCetakLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pgbNetto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 98, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ckbSystemOverride)
+                .addGap(0, 66, Short.MAX_VALUE))
         );
 
         pnlMainWindowBawah.add(pnlAdmin, "crdAdmin");
@@ -1828,6 +1838,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnUploadNetto;
     private javax.swing.JCheckBox ckbRincian;
     private javax.swing.JCheckBox ckbSampaiDengan;
+    private javax.swing.JCheckBox ckbSystemOverride;
     private org.jdesktop.swingx.JXDatePicker dtpCetakLaporan1;
     private org.jdesktop.swingx.JXDatePicker dtpCetakLaporan2;
     private org.jdesktop.swingx.JXDatePicker dtpMasukManual;
@@ -2076,5 +2087,9 @@ public class MainWindow extends javax.swing.JFrame {
     
     public JCheckBox getCkbRincian(){
         return ckbRincian;
+    }
+    
+    public JCheckBox getCkbSystemOverride(){
+        return ckbSystemOverride;
     }
 }

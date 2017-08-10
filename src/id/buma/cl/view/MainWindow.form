@@ -2233,11 +2233,14 @@
                   <Component id="pnlIdTrukMenuAtas1" alignment="0" pref="1448" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="pnlUploadNetto" alignment="0" max="32767" attributes="0"/>
-                          <Component id="pnlGantiPeriode" alignment="0" max="32767" attributes="0"/>
-                          <Component id="pnlCetakLaporan" alignment="0" max="32767" attributes="0"/>
-                          <Component id="pgbNetto" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="ckbSystemOverride" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="pnlUploadNetto" alignment="0" max="32767" attributes="0"/>
+                              <Component id="pnlGantiPeriode" alignment="0" max="32767" attributes="0"/>
+                              <Component id="pnlCetakLaporan" alignment="0" max="32767" attributes="0"/>
+                              <Component id="pgbNetto" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace pref="981" max="32767" attributes="0"/>
                   </Group>
@@ -2255,7 +2258,9 @@
                       <Component id="pnlCetakLaporan" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="pgbNetto" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="98" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="ckbSystemOverride" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="66" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -2671,6 +2676,15 @@
               <Properties>
                 <Property name="doubleBuffered" type="boolean" value="true"/>
                 <Property name="name" type="java.lang.String" value="pgbNetto" noResource="true"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="ckbSystemOverride">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="System override"/>
+                <Property name="name" type="java.lang.String" value="ckbSystemOverride" noResource="true"/>
               </Properties>
             </Component>
           </SubComponents>
