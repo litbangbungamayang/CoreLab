@@ -189,7 +189,7 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
     @Override
     public List<SampelTebu> getAllSampelTebu(Date periode) {
         List<SampelTebu> sampelTebu = new ArrayList<>();
-        String sql = "SELECT * FROM TBL_CORELAB WHERE PERIODE=? AND CETAK_HASIL=?";
+        String sql = "SELECT * FROM TBL_CORELAB WHERE PERIODE=? AND CETAK_HASIL=? ORDER BY NO_ANALISA";
         try {
             if (DbCoreSamplerConnectionManager.isConnect() == true){
                 PreparedStatement ps = DbCoreSamplerConnectionManager.getConnection().prepareStatement(sql);
@@ -756,6 +756,63 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
                     '\n'+"Error code : "+ex.toString(), "Error Get Data", JOptionPane.ERROR_MESSAGE);
         }
         return totalRafaksi;
+    }
+
+    @Override
+    public int getBatasSampelNira() {
+        String sql = "SELECT BATAS_NIRA FROM TBL_NUMERATOR";
+        int jmlNira = 0;
+        try {
+            if (DbCoreSamplerConnectionManager.isConnect() == true){
+                PreparedStatement ps = DbCoreSamplerConnectionManager.getConnection().prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()){
+                    jmlNira = rs.getInt("BATAS_NIRA");
+                }
+                return jmlNira;
+            }
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(mw, "Error getBatasSampelNira!"+'\n'+
+                    "Error code : "+ex.toString());
+        }
+        return jmlNira;
+    }
+
+    @Override
+    public int getBatasSampelXds() {
+        String sql = "SELECT BATAS_XDS FROM TBL_NUMERATOR";
+        int jmlXds = 0;
+        try {
+            if (DbCoreSamplerConnectionManager.isConnect() == true){
+                PreparedStatement ps = DbCoreSamplerConnectionManager.getConnection().prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()){
+                    jmlXds = rs.getInt("BATAS_XDS");
+                }
+                return jmlXds;
+            }
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(mw, "Error getBatasSampelNira!"+'\n'+
+                    "Error code : "+ex.toString());
+        }
+        return jmlXds;
+    }
+
+    @Override
+    public void cetakLaporanRafaksi(java.sql.Date tglLaporan) {
+        if (DbCoreSamplerConnectionManager.isConnect()){
+            try {
+                Connection con = DbCoreSamplerConnectionManager.getConnection();
+                String fileName = "./reports/LaporanRafaksiTR.jasper";
+                Map map = new HashMap();
+                map.put("TANGGAL", tglLaporan);
+                JasperPrint jp = JasperFillManager.fillReport(fileName, map, con);
+                JasperViewer.viewReport(jp, false);
+            } catch (Exception ex) {
+                Logger.getLogger(SampelTebuDAOSQL.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
     }
     
 }

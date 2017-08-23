@@ -102,7 +102,7 @@ public class CommonController implements MouseListener {
     public String systemOverrideStatus = "N"; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.01.08072017.0606";
+    public String versiSistem = "Corelab v.1.01.24082017.0309";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
@@ -143,6 +143,9 @@ public class CommonController implements MouseListener {
     * Corelab v.1.01.08072017.0606
     *   + Rencana penambahan override sistem (blm selesai)
     *   + Penghapusan tampilan HK di layar monitor sampel
+    * Corelab v.1.01.24082017.0309
+    *   + Penambahan fungsi rekap rafaksi per petani
+    *   + Penambahan fungsi pembatasan sampel nira
     */
     
     public void setVersiSistem(){
@@ -190,6 +193,7 @@ public class CommonController implements MouseListener {
     
     public void setPeriodeAnalisa(){
         java.sql.Date periodeBaru = new java.sql.Date(mw.getDtpTglSetPeriode().getDate().getTime());
+        java.sql.Date tglSekarang = new java.sql.Date(new Date().getTime());
         if (getPeriodeAnalisa().compareTo(periodeBaru) != 0){
             if (idAnalisaDao.setPeriodeAnalisa(periodeBaru) && idAnalisaDao.resetNumeratorAnalisa()){
                 mw.getDtpTglMasuk().setDate(getPeriodeAnalisa());
@@ -405,11 +409,6 @@ public class CommonController implements MouseListener {
     public boolean cetakLabel(String namaPrinter) throws PrinterException, ParseException{
         HashAttributeSet attributes = new HashAttributeSet();
         attributes.add(new PrinterName(namaPrinter,null));
-        /*
-        int wd = Math.round(MediaSize.ISO.A4.getX(MediaSize.MM));
-        int hg = Math.round(MediaSize.ISO.A4.getY(MediaSize.MM));
-        attributes.add(byshn    new MediaPrintableArea(10, 10, wd-10, hg-10, MediaPrintableArea.MM));
-        */
         DocFlavor format = DocFlavor.SERVICE_FORMATTED.PRINTABLE;
         PrintService[] services = PrintServiceLookup.lookupPrintServices(format,attributes);
         if (services.length > 0 ){
@@ -473,28 +472,6 @@ public class CommonController implements MouseListener {
                 statusSampel = "BELUM";
             }
         }
-        /*
-        mw.getTxpBarcode().setText("");
-        StyledDocument doc = mw.getTxpBarcode().getStyledDocument();
-        Style style = mw.getTxpBarcode().addStyle("statusHasil", null);
-        StyleConstants.setFontFamily(style, "Consolas");
-        StyleConstants.setFontSize(style, 13);
-        try {
-            doc.insertString(doc.getLength(), hasil, style);           
-            try {
-                if (cetakLabel("PRINTER DO") == true){
-                    simpanStatusSampel(numerator, statusSampel);
-                    refreshStatusPanel("TRUK");
-                }
-            } catch (PrinterException ex) {
-                Logger.getLogger(CommonController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        } catch (BadLocationException ex) {
-            Logger.getLogger(CommonController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
-        
     }
     
     public void overrideHasilAnalisa(String idAnalisa){
@@ -504,46 +481,31 @@ public class CommonController implements MouseListener {
     public void generateIdAnalisa() throws ParseException {
         DateFormat tglPeriode = new SimpleDateFormat("ddMMyyyy");
         String tglPeriodeId = tglPeriode.format(getPeriodeAnalisa());
-        String idAnalisa = tglPeriodeId+idAnalisaDao.getLastId();
+        String idAnalisa = tglPeriodeId + idAnalisaDao.getLastId();
         DateFormat tglSkr = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         String timeStampSkr = tglSkr.format(new Date());
         mw.getTxpBarcode().setText("");
         
-        /* BARCODING */
+        /* Barcode Settings */
         StyledDocument doc = mw.getTxpBarcode().getStyledDocument();
         Style style = mw.getTxpBarcode().addStyle("dualText", null);
         
-        StyleConstants.setFontFamily(style, "Calibri");
-        StyleConstants.setFontSize(style, 16);
-        try{
-            doc.insertString(doc.getLength(), "Lab. Core Sampler" + '\n' + '\n', style);
-        } catch (BadLocationException ex){}
-        
-        StyleConstants.setFontFamily(style, "Free 3 of 9");
-        StyleConstants.setFontSize(style, 36);
-        try{
-            doc.insertString(doc.getLength(), "*"+idAnalisa+"*", style);
-        } catch (BadLocationException ex){}
-        
-        StyleConstants.setFontFamily(style, "Consolas");
-        StyleConstants.setFontSize(style, 18);
-        try{
-            doc.insertString(doc.getLength(),'\n'+idAnalisa+'\n', style);
-        } catch (BadLocationException ex){}
-        
-        StyleConstants.setFontFamily(style, "Consolas");
-        StyleConstants.setFontSize(style, 12);
-        try{
-            doc.insertString(doc.getLength(),timeStampSkr, style);
-        } catch (BadLocationException ex){}               
         try {
             if (idAnalisaDao.cekDuplikatIdSampel(idAnalisa)){
-                if (cetakLabel("PRINTER ID") == true){
-                    simpanDataBaru(idAnalisa);
+                if (cekBatasSampel("NIRA") == true){
+                    barcoding(idAnalisa, timeStampSkr, doc, style);
+                    if (cetakLabel("PRINTER ID") == true){
+                        simpanDataBaru(idAnalisa);
+                    } else {
+                        JOptionPane.showMessageDialog(mw, "Cetak ID Analisa gagal! ID belum tersimpan.",
+                                "Error Cetak ID", JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(mw, "Cetak ID Analisa gagal! ID belum tersimpan.",
-                            "Error Cetak ID", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(mw, "Sampel nira tidak boleh lebih dari " +
+                            sampelTebuDao.getBatasSampelNira() + " !");
                 }
+            } else {
+                JOptionPane.showMessageDialog(mw, "Data ID Analisa sudah ada! Duplikasi sampel!");
             }
         } catch (HeadlessException | PrinterException | ParseException ex){
             System.out.println(ex.toString());
@@ -906,11 +868,15 @@ public class CommonController implements MouseListener {
                         } else {
                             detailStatus = "NO";
                         }
-                        if (mw.getCkbSampaiDengan().isSelected()){                           
-                            java.sql.Date tglLaporan2 = new java.sql.Date(mw.getDtpCetakLaporan2().getDate().getTime());
-                            sampelTebuDao.cetakLaporanPeriode(tglLaporan1, tglLaporan2);                    
+                        if (mw.getCkbRafaksi().isSelected()){
+                            sampelTebuDao.cetakLaporanRafaksi(tglLaporan1);
                         } else {
-                            sampelTebuDao.cetakLaporanHarian(tglLaporan1,detailStatus, sampelTebuDao.getTotalRafaksi(tglLaporan1));
+                            if (mw.getCkbSampaiDengan().isSelected()){                           
+                                java.sql.Date tglLaporan2 = new java.sql.Date(mw.getDtpCetakLaporan2().getDate().getTime());
+                                sampelTebuDao.cetakLaporanPeriode(tglLaporan1, tglLaporan2);                    
+                            } else {
+                                sampelTebuDao.cetakLaporanHarian(tglLaporan1, detailStatus, sampelTebuDao.getTotalRafaksi(tglLaporan1));
+                            }
                         }
                     }
                 }
@@ -998,11 +964,6 @@ public class CommonController implements MouseListener {
                 versiSistem,
                 "N"
             );
-        /*
-        if (sampelTebuDao.insertInputData(sampelBaru) == true){
-            return true;
-        }
-        */
         return sampelTebuDao.insertInputData(sampelBaru);
     }
     
@@ -1038,20 +999,26 @@ public class CommonController implements MouseListener {
         return "";
     }
     
-    public int cekStatusNira(SampelTebu st) throws ParseException{
+    public int cekStatusNira(List<SampelTebu> semuaSampel) throws ParseException{
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         int jml = 0;
-        java.util.Date komparasiTgl = mw.sqlDateFormat.parse("1900/01/01");
-        if (st.getTgl_press().compareTo(komparasiTgl) != 0){
-            jml ++;
+        java.util.Date komparasiTgl = df.parse("1900-01-01");
+        for (SampelTebu sampelTebu : semuaSampel){
+            if (sampelTebu.getTgl_press().compareTo(komparasiTgl) == 0){
+                jml ++;
+            }
         }
         return jml;
     }
     
-    public int cekStatusXds(SampelTebu st) throws ParseException{
+    public int cekStatusXds(List<SampelTebu> totalSampel) throws ParseException{
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         int jml = 0;
-        java.util.Date komparasiTgl = mw.sqlDateFormat.parse("1900/01/01");
-        if (st.getTgl_xds().compareTo(komparasiTgl) != 0){
-            jml ++;
+        java.util.Date komparasiTgl = df.parse("1900-01-01");
+        for (SampelTebu sampelTebu : totalSampel){
+            if (sampelTebu.getTgl_xds().compareTo(komparasiTgl) == 0){
+                jml ++;
+            }
         }
         return jml;
     }
@@ -1075,13 +1042,12 @@ public class CommonController implements MouseListener {
         for (SampelTebu sampelTebu : totalSampel) {
             try {
                 listSampel.addElement(cekStatusSampel(sampelTebu));
-                jmlSampelNiraSkr = cekStatusNira(sampelTebu); //sampel yang sudah diinput di press
-                jmlSampelXdsSkr = cekStatusXds(sampelTebu); //sampel yang sudah dianalisa XDS
+                //jmlSampelNiraSkr = cekStatusNira(sampelTebu); //sampel yang sudah diinput di press
+                //jmlSampelXdsSkr = cekStatusXds(sampelTebu); //sampel yang sudah dianalisa XDS
             } catch (ParseException ex) {
                 Logger.getLogger(CommonController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        //JOptionPane.showMessageDialog(mw, "SampelNiraSkr="+jmlSampelNiraSkr+";SampelXDSSkr="+jmlSampelXdsSkr+"\nSampelNira="+jmlSampelNira+";SampelXDS="+jmlSampelXds);
         if (namaPanel.equals("TRUK")){
             mw.getLstMonitoringSampel().setModel(listSampel);
         } else {
@@ -1089,34 +1055,49 @@ public class CommonController implements MouseListener {
                 mw.getLstMonitoringSampelNira().setModel(listSampel);
             }
         }
-        /*
-        if (jmlSampelSkr != jmlSampel){
-            mw.getLstMonitoringSampel().setModel(listSampel);
-            mw.getLstMonitoringSampelNira().setModel(listSampel);
-            jmlSampel = jmlSampelSkr;
-        } else {
-            if (jmlSampelNira != jmlSampelNiraSkr){
-                mw.getLstMonitoringSampel().setModel(listSampel);
-                mw.getLstMonitoringSampelNira().setModel(listSampel);
-                jmlSampelNira = jmlSampelNiraSkr; 
-            } else {
-                if (jmlSampelXds != jmlSampelXdsSkr){
-                    mw.getLstMonitoringSampel().setModel(listSampel);
-                    mw.getLstMonitoringSampelNira().setModel(listSampel);
-                    jmlSampelXds = jmlSampelXdsSkr;
-                }
-            }
+    }
+    
+    public boolean cekBatasSampel(String namaSampel) throws ParseException{
+        totalSampel = sampelTebuDao.getAllSampelTebu(getPeriodeAnalisa());
+        int batasSampelNira = sampelTebuDao.getBatasSampelNira();
+        int batasSampelXds = sampelTebuDao.getBatasSampelXds();
+        int sampelNira = cekStatusNira(totalSampel);
+        int sampelXds = cekStatusXds(totalSampel);
+        switch(namaSampel){
+            case "NIRA" :
+                if (sampelNira < batasSampelNira){return true;}
+                break;
+            case "XDS" :
+                if (sampelXds < batasSampelXds){return true;}
+                break;
         }
-        */
-        /*
-        if (jmlSampelSkr != jmlSampel || jmlSampelNiraSkr != jmlSampelNira || jmlSampelXdsSkr != jmlSampelXds){
-            mw.getLstMonitoringSampel().setModel(listSampel);
-            mw.getLstMonitoringSampelNira().setModel(listSampel);
-            jmlSampelXds = jmlSampelXdsSkr;
-            jmlSampelNira = jmlSampelNiraSkr;
-            jmlSampel = jmlSampelSkr;
-        }
-        */
+        return false;
+    }
+    
+    public void barcoding(String idAnalisa, String timeStampSkr, StyledDocument doc, Style style){
+        StyleConstants.setFontFamily(style, "Calibri");
+        StyleConstants.setFontSize(style, 16);
+        try{
+            doc.insertString(doc.getLength(), "Lab. Core Sampler" + '\n' + '\n', style);
+        } catch (BadLocationException ex){}
+        
+        StyleConstants.setFontFamily(style, "Free 3 of 9");
+        StyleConstants.setFontSize(style, 36);
+        try{
+            doc.insertString(doc.getLength(), "*"+idAnalisa+"*", style);
+        } catch (BadLocationException ex){}
+        
+        StyleConstants.setFontFamily(style, "Consolas");
+        StyleConstants.setFontSize(style, 18);
+        try{
+            doc.insertString(doc.getLength(),'\n'+idAnalisa+'\n', style);
+        } catch (BadLocationException ex){}
+        
+        StyleConstants.setFontFamily(style, "Consolas");
+        StyleConstants.setFontSize(style, 12);
+        try{
+            doc.insertString(doc.getLength(),timeStampSkr, style);
+        } catch (BadLocationException ex){}
     }
     
 }
