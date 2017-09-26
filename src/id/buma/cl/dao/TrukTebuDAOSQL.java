@@ -39,7 +39,10 @@ public class TrukTebuDAOSQL implements TrukTebuDAO{
     public List<TrukTebu> getDataTimbangan(String numerator) {
         String numeratorBaru = "";
         List<TrukTebu> trukTebu = new ArrayList<>();
-        String sql = "SELECT * FROM TIMBANG WHERE NUMERATOR=? OR NUMERATOR=?";
+        String sql = "SELECT T.NUMERATOR, T.NOPOL, T.NOPOL2, T.IDPETANI, T.NOKEBUN, T.NETTO, T.PERIODE, T.TSTR, R.RAYON, A.AFDELING "
+                     + " FROM TIMBANG T INNER JOIN AFDELING A ON T.IDAFD=A.IDAFD"
+                     + " INNER JOIN RAYON R ON A.IDRAYON=R.IDRAYON"
+                     + " WHERE NUMERATOR=? OR NUMERATOR=?";
         try {
             PreparedStatement ps = DbTimbanganConnectionManager.getConnection().prepareStatement(sql);
             ps.setString(1, numerator);

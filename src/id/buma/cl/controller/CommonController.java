@@ -102,7 +102,7 @@ public class CommonController implements MouseListener {
     public String systemOverrideStatus = "N"; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.01.24082017.0309";
+    public String versiSistem = "Corelab v.1.01.26092017.0924";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
@@ -146,6 +146,8 @@ public class CommonController implements MouseListener {
     * Corelab v.1.01.24082017.0309
     *   + Penambahan fungsi rekap rafaksi per petani
     *   + Penambahan fungsi pembatasan sampel nira
+    * Corelab v.1.01.26092017.0924
+    *   + Pengubahan data timbangan, inner join ke tabel rayon utk ambil data rayon
     */
     
     public void setVersiSistem(){
