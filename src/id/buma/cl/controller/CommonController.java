@@ -878,6 +878,7 @@ public class CommonController implements MouseListener {
                                 sampelTebuDao.cetakLaporanPeriode(tglLaporan1, tglLaporan2);                    
                             } else {
                                 sampelTebuDao.cetakLaporanHarian(tglLaporan1, detailStatus, sampelTebuDao.getTotalRafaksi(tglLaporan1));
+                                //sampelTebuDao.cetakLaporanHarian(tglLaporan1, detailStatus, 100.0);
                             }
                         }
                     }

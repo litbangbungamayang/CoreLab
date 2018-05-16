@@ -739,7 +739,7 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
 
     @Override
     public Double getTotalRafaksi(Date periode) {
-        String sql = "SELECT SUM(KW_RAFAKSI) AS TOTAL FROM TBL_RAFAKSI_CS WHERE PERIODE=?";
+        String sql = "SELECT SUM(KW_RAFAKSI) AS TOTAL FROM [prod].[TBL_RAFAKSI_CS] WHERE PERIODE=?";
         Double totalRafaksi = 0.0;
         try{
             if (DbTimbanganConnectionManager.isConnect() == true){

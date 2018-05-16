@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,17 +25,20 @@ public class DbCoreSamplerConnectionManager {
     public static Connection getConnection() throws Exception {
         if (connection == null){
             try {
-                //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");//NOT NEEDED as in the JDBC API 4.0, the DriverManager.getConnection method is enhanced to load JDBC drivers automatically. (https://docs.microsoft.com/en-us/sql/connect/jdbc/using-the-jdbc-driver)
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");//NOT NEEDED as in the JDBC API 4.0, the DriverManager.getConnection method is enhanced to load JDBC drivers automatically. (https://docs.microsoft.com/en-us/sql/connect/jdbc/using-the-jdbc-driver)
 
-                String cLokal = "jdbc:sqlserver://LOCALHOST\\X230_SRV:1433;"+
-                                        "databaseName=BUMA;user=prod;password=prod;";
+                //String cLokal = "jdbc:sqlserver://LOCALHOST\\SQL2012:1433;"+
+                String cLokal = "jdbc:sqlserver://192.168.137.240\\SQL2012:1433;"+
+                                        "databaseName=CoreSampler;user=sa;password=123456;";
                 
                 String cLive = "jdbc:sqlserver://192.168.39.135:1433;"+
                                    "databaseName=BUMA;user=prod;password=prod;";
                 
-                connection = DriverManager.getConnection(cLive);
+                connection = DriverManager.getConnection(cLokal);
             } catch (SQLException e) {
-                return null;
+                //return null;
+                JOptionPane.showMessageDialog(null,"<html><body><p style='width: 200px;'>"+
+                        e.toString()+"</p></body></html>");
             }
         }
         return connection;
