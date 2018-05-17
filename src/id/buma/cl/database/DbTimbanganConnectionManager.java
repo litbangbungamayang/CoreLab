@@ -33,9 +33,11 @@ public class DbTimbanganConnectionManager {
                 String cLokal = "jdbc:sqlserver://LOCALHOST\\X230_SRV:1433;"+
                                    "databaseName=SugarCaneDb;user=prod;password=prod;";
                 
-                String cSimpgLive = "jdbc:mysql://192.168.39.150:3306/sim_tr?user=root&password=tiptpn7&useSSL=false";
+                String cSimpgLive = "jdbc:mysql://192.168.39.150:3306/simpg?user=root&password=tiptpn7&useSSL=false";
+                
+                String cSimpgLokal = "jdbc:mysql://localhost:3306/simpg?user=root&password=&useSSL=false";
 
-                connection = DriverManager.getConnection(cLive);
+                connection = DriverManager.getConnection(cSimpgLokal);
                 
             } catch (ClassNotFoundException | SQLException e) {
                 //return null;

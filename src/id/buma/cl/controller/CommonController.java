@@ -102,7 +102,7 @@ public class CommonController implements MouseListener {
     public String systemOverrideStatus = "N"; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.01.17052018.0826";
+    public String versiSistem = "Corelab v.1.01.17052018.1428";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
@@ -150,6 +150,8 @@ public class CommonController implements MouseListener {
     *   + Pengubahan data timbangan, inner join ke tabel rayon utk ambil data rayon
     * Corelab v.1.01.17052018.0826
     *   + Penambahan koneksi untuk SIMPG
+    * Corelab v.1.01.17052018.1428
+    *   + Perubahan pengambilan data truk tebu ke SIMPG
     */
     
     public void setVersiSistem(){
@@ -517,7 +519,7 @@ public class CommonController implements MouseListener {
     }
     
     public void resetLabel(){
-        mw.getFtxtNumerator().setText("");
+        mw.getTxtNumerator().setText("");
         mw.getLblNumerator().setText("");
         mw.getLblNoTarra().setText("");
         mw.getLblNopol().setText("");
@@ -717,8 +719,34 @@ public class CommonController implements MouseListener {
         }
     };
     
+    public KeyListener klTxt = new KeyListener() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+           
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            JTextField txtObj = (JTextField) e.getSource();
+            int key = e.getKeyCode();
+            if (key == KeyEvent.VK_ENTER){
+                try {
+                    textFieldActionEnter(txtObj);
+                } catch (ParseException ex) {
+                    Logger.getLogger(CommonController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            
+        }
+    };
+    
     public void cekNumerator(int inputLen, String parsingTgl, 
             String inputText) throws ParseException{
+        /*
         String numeratorSearch = null;
         double hkNum;
         switch (inputText.length()){
@@ -741,14 +769,16 @@ public class CommonController implements MouseListener {
                 numeratorSearch = parsingTgl+inputText;
                 break;
         }
-        seqNo = idAnalisaDao.cekDuplikatSampel(numeratorSearch);
+        */
+        //seqNo = idAnalisaDao.cekDuplikatSampel(numeratorSearch);
+        seqNo = idAnalisaDao.cekDuplikatSampel(inputText);
         /****************** BY PASS SISTEM ***********************************/
         if (idAnalisaDao.getBypassStatus() == 1){
-            trukTebuDao.konversiNumerator(numeratorSearch);
+            //trukTebuDao.konversiNumerator(inputText);
         }
         /*===================================================================*/
         if (seqNo == 0){
-            getTrukDetail(numeratorSearch);
+            getTrukDetail(inputText);
         } else {
             JOptionPane.showMessageDialog(mw, "Sampel TIDAK PERLU DIULANG!", 
                     "Error Input", JOptionPane.ERROR_MESSAGE);
@@ -769,12 +799,6 @@ public class CommonController implements MouseListener {
                 case 2:
                     tstrTxt = "TR";
                     break;
-                case 3:
-                    tstrTxt = "TRB";
-                    break;
-                case 4:
-                    tstrTxt = "TSI";
-                    break;
             }
             mw.getLblNumerator().setText(trukTebu.getNumerator());
             mw.getLblTsTr().setText(tstrTxt + "/" + trukTebu.getIdPetani());
@@ -792,6 +816,10 @@ public class CommonController implements MouseListener {
         String txtName = txt.getName();
         String txtText = txt.getText().trim();
         if (txtName.equals("ftxtNumerator")){
+            String parsingTgl = mw.numeratorFormat.format(mw.getDtpTglMasuk().getDate());
+            cekNumerator(txtText.length(),parsingTgl,txtText);            
+        }
+        if (txtName.equals("txtNumerator")){
             String parsingTgl = mw.numeratorFormat.format(mw.getDtpTglMasuk().getDate());
             cekNumerator(txtText.length(),parsingTgl,txtText);            
         }

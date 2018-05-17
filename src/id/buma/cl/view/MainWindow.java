@@ -31,6 +31,7 @@ public final class MainWindow extends javax.swing.JFrame {
     
     private CommonController commonController = new CommonController(this);
     private KeyListener txtKl = commonController.kl;
+    private KeyListener txtKl2  = commonController.klTxt;
     public DateFormat sqlDateFormat = new SimpleDateFormat("yyyy/MM/dd");
     public DateFormat sqlTimeFormat = new SimpleDateFormat("HH:mm");
     public DateFormat numeratorFormat = new SimpleDateFormat("ddMMyy");
@@ -111,7 +112,7 @@ public final class MainWindow extends javax.swing.JFrame {
     }
     
     public void setAction(){
-        ftxtNumerator.addKeyListener(txtKl);
+        txtNumerator.addKeyListener(txtKl2);
         ftxtKodeSampel.addKeyListener(txtKl);
         btnManualId.addActionListener(commonController.actButton(btnManualId));
         btnBatalManualInput.addActionListener(commonController.actButton(btnBatalManualInput));
@@ -195,7 +196,6 @@ public final class MainWindow extends javax.swing.JFrame {
         btnRefreshData = new javax.swing.JButton();
         pnlIdTrukReg = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        ftxtNumerator = new javax.swing.JFormattedTextField();
         dtpTglMasuk = new org.jdesktop.swingx.JXDatePicker();
         jLabel15 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -214,6 +214,7 @@ public final class MainWindow extends javax.swing.JFrame {
         btnManualId = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         txpBarcode = new javax.swing.JTextPane();
+        txtNumerator = new javax.swing.JTextField();
         pnlNira = new javax.swing.JPanel();
         pnlNiraMenuAtas = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
@@ -769,15 +770,7 @@ public final class MainWindow extends javax.swing.JFrame {
         pnlIdTrukReg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         jLabel14.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
-        jLabel14.setText("Input Numerator");
-
-        try {
-            ftxtNumerator.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        ftxtNumerator.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
-        ftxtNumerator.setName("ftxtNumerator"); // NOI18N
+        jLabel14.setText("No. SPAT");
 
         dtpTglMasuk.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
         dtpTglMasuk.setName("dtpTglMasuk"); // NOI18N
@@ -786,7 +779,7 @@ public final class MainWindow extends javax.swing.JFrame {
         jLabel15.setText("Tanggal Masuk");
 
         lblNumerator.setBackground(new java.awt.Color(0, 57, 149));
-        lblNumerator.setFont(new java.awt.Font("Open Sans", 1, 22)); // NOI18N
+        lblNumerator.setFont(new java.awt.Font("Open Sans", 1, 12)); // NOI18N
         lblNumerator.setForeground(new java.awt.Color(255, 255, 255));
         lblNumerator.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNumerator.setAlignmentY(0.0F);
@@ -813,7 +806,7 @@ public final class MainWindow extends javax.swing.JFrame {
         jLabel18.setPreferredSize(new java.awt.Dimension(110, 31));
 
         lblTsTr.setBackground(new java.awt.Color(149, 0, 0));
-        lblTsTr.setFont(new java.awt.Font("Open Sans", 1, 22)); // NOI18N
+        lblTsTr.setFont(new java.awt.Font("Open Sans", 1, 12)); // NOI18N
         lblTsTr.setForeground(new java.awt.Color(255, 255, 255));
         lblTsTr.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTsTr.setAlignmentY(0.0F);
@@ -824,7 +817,7 @@ public final class MainWindow extends javax.swing.JFrame {
         lblTsTr.setPreferredSize(new java.awt.Dimension(171, 31));
 
         lblNoTarra.setBackground(new java.awt.Color(0, 57, 149));
-        lblNoTarra.setFont(new java.awt.Font("Open Sans", 1, 22)); // NOI18N
+        lblNoTarra.setFont(new java.awt.Font("Open Sans", 1, 12)); // NOI18N
         lblNoTarra.setForeground(new java.awt.Color(255, 255, 255));
         lblNoTarra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNoTarra.setAlignmentY(0.0F);
@@ -851,7 +844,7 @@ public final class MainWindow extends javax.swing.JFrame {
         jLabel22.setPreferredSize(new java.awt.Dimension(110, 31));
 
         lblNopol.setBackground(new java.awt.Color(0, 57, 149));
-        lblNopol.setFont(new java.awt.Font("Open Sans", 1, 22)); // NOI18N
+        lblNopol.setFont(new java.awt.Font("Open Sans", 1, 12)); // NOI18N
         lblNopol.setForeground(new java.awt.Color(255, 255, 255));
         lblNopol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNopol.setAlignmentY(0.0F);
@@ -862,7 +855,7 @@ public final class MainWindow extends javax.swing.JFrame {
         lblNopol.setPreferredSize(new java.awt.Dimension(171, 31));
 
         lblRayon.setBackground(new java.awt.Color(62, 149, 0));
-        lblRayon.setFont(new java.awt.Font("Open Sans", 1, 22)); // NOI18N
+        lblRayon.setFont(new java.awt.Font("Open Sans", 1, 12)); // NOI18N
         lblRayon.setForeground(new java.awt.Color(255, 255, 255));
         lblRayon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRayon.setAlignmentY(0.0F);
@@ -904,6 +897,9 @@ public final class MainWindow extends javax.swing.JFrame {
         txpBarcode.setDoubleBuffered(true);
         jScrollPane2.setViewportView(txpBarcode);
 
+        txtNumerator.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
+        txtNumerator.setName("txtNumerator"); // NOI18N
+
         javax.swing.GroupLayout pnlIdTrukRegLayout = new javax.swing.GroupLayout(pnlIdTrukReg);
         pnlIdTrukReg.setLayout(pnlIdTrukRegLayout);
         pnlIdTrukRegLayout.setHorizontalGroup(
@@ -912,13 +908,20 @@ public final class MainWindow extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlIdTrukRegLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblRayon, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNopol, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNoTarra, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblTsTr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblNumerator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlIdTrukRegLayout.createSequentialGroup()
+                        .addGroup(pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblRayon, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNopol, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNoTarra, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblTsTr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblNumerator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlIdTrukRegLayout.createSequentialGroup()
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNumerator, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))))
             .addGroup(pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlIdTrukRegLayout.createSequentialGroup()
                     .addGap(22, 22, 22)
@@ -926,13 +929,9 @@ public final class MainWindow extends javax.swing.JFrame {
                         .addGroup(pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jSeparator1)
                             .addGroup(pnlIdTrukRegLayout.createSequentialGroup()
-                                .addGroup(pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel14)
-                                    .addComponent(jLabel15))
-                                .addGap(18, 18, 18)
-                                .addGroup(pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dtpTglMasuk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(ftxtNumerator, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dtpTglMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -951,7 +950,11 @@ public final class MainWindow extends javax.swing.JFrame {
         pnlIdTrukRegLayout.setVerticalGroup(
             pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlIdTrukRegLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(48, 48, 48)
+                .addGroup(pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNumerator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblNumerator, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTsTr, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -966,11 +969,7 @@ public final class MainWindow extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlIdTrukRegLayout.createSequentialGroup()
-                    .addGap(52, 52, 52)
-                    .addGroup(pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel14)
-                        .addComponent(ftxtNumerator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGap(80, 80, 80)
                     .addGroup(pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel15)
                         .addComponent(dtpTglMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1858,7 +1857,6 @@ public final class MainWindow extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXDatePicker dtpTglSetPeriode;
     private javax.swing.JFormattedTextField ftxtBeratSampel;
     private javax.swing.JFormattedTextField ftxtKodeSampel;
-    private javax.swing.JFormattedTextField ftxtNumerator;
     private javax.swing.JPasswordField ftxtPassword;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1973,6 +1971,7 @@ public final class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel pnlXdsMenuAtas;
     private javax.swing.JTextPane txpBarcode;
     private javax.swing.JTextField txtNoTarraManual;
+    private javax.swing.JTextField txtNumerator;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
     
@@ -2016,8 +2015,8 @@ public final class MainWindow extends javax.swing.JFrame {
         return txpBarcode;
     }
     
-    public JTextField getFtxtNumerator(){
-        return ftxtNumerator;
+    public JTextField getTxtNumerator(){
+        return txtNumerator;
     }
     
     public JList getLstMonitoringSampel(){
