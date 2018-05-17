@@ -148,6 +148,8 @@ public class CommonController implements MouseListener {
     *   + Penambahan fungsi pembatasan sampel nira
     * Corelab v.1.01.26092017.0924
     *   + Pengubahan data timbangan, inner join ke tabel rayon utk ambil data rayon
+    * Corelab v.1.01.17052018.0826
+    *   + Penambahan koneksi untuk SIMPG
     */
     
     public void setVersiSistem(){
