@@ -102,7 +102,7 @@ public class CommonController implements MouseListener {
     public String systemOverrideStatus = "N"; //variabel umum, nilainya berubah2
     public String pathXds;
     public String idAnalisaSampelCake;
-    public String versiSistem = "Corelab v.1.01.17052018.1428";
+    public String versiSistem = "Corelab v.1.01.21052018.1052";
     /*
     * Corelab v.1.00.21052017.2015
     *   + Perubahan status TEBU DITOLAK, tercetak menjadi RAFAKSI 50%
@@ -152,6 +152,10 @@ public class CommonController implements MouseListener {
     *   + Penambahan koneksi untuk SIMPG
     * Corelab v.1.01.17052018.1428
     *   + Perubahan pengambilan data truk tebu ke SIMPG
+    * Corelab v.1.01.21052018.1052
+    *   + Perbaikan report harian dan periode
+    *   + Perbaikan alur program, disable rafaksi
+    *   + Perubahan koneksi database untuk ambil netto
     */
     
     public void setVersiSistem(){
@@ -167,11 +171,13 @@ public class CommonController implements MouseListener {
         mw.setCursor(null);
         JOptionPane.showMessageDialog(mw, "Netto sudah terupdate!", "", JOptionPane.INFORMATION_MESSAGE);
         mw.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        /*
         if (sampelTebuDao.getAllRafaksi(tglPeriode) == true){
             JOptionPane.showMessageDialog(mw, "Data rafaksi sudah diupdate!");
         } else {
             JOptionPane.showMessageDialog(mw, "Data rafaksi gagal diupdate!");
         }
+        */
         mw.setCursor(null);
     }
     
@@ -394,7 +400,7 @@ public class CommonController implements MouseListener {
     public void simpanStatusSampel(String numerator, String statSampel){
         switch (statSampel){
             case "LOLOS":
-                trukTebuDao.konversiNumerator(numerator);
+                //trukTebuDao.konversiNumerator(numerator);
                 sampelTebuDao.setCetakHasil(numerator);
                 break;
             case "RAFAKSI":
@@ -428,6 +434,7 @@ public class CommonController implements MouseListener {
     public void simpanDataBaru(String idAnalisa) throws ParseException{
         if (idAnalisaDao.updateId() == true){
             if (simpanSampelBaru(idAnalisa) == true){
+                trukTebuDao.setMasukCs(mw.getTxtNumerator().getText());
                 refreshStatusPanel("TRUK");
                 resetLabel();
                 JOptionPane.showMessageDialog(mw, "Data berhasil disimpan!",
@@ -531,6 +538,7 @@ public class CommonController implements MouseListener {
         mw.getLblStatusTimbang().setBackground(Color.BLACK);
         mw.getFtxtKodeSampel().setText("");
         mw.getFtxtBeratSampel().setText("");
+        mw.getTxtNumerator().requestFocus();
     }   
     
     public CommonController(MainWindow mw){
@@ -548,7 +556,7 @@ public class CommonController implements MouseListener {
         String menuName = menuPanel.getName();
         switch (menuName){
             case "pnlMenuIdTruk":
-                if (userBaru.getKewenangan().equals("truk") ||
+                if (userBaru.getKewenangan().equals("operator") ||
                     userBaru.getKewenangan().equals("admin") ||
                     userBaru.getKewenangan().equals("mandor"))
                 {
@@ -558,7 +566,7 @@ public class CommonController implements MouseListener {
                 }
                 break;
             case "pnlMenuNira":
-                if (userBaru.getKewenangan().equals("nira") ||
+                if (userBaru.getKewenangan().equals("operator") ||
                     userBaru.getKewenangan().equals("admin") ||
                     userBaru.getKewenangan().equals("mandor"))
                 {
@@ -907,8 +915,8 @@ public class CommonController implements MouseListener {
                                 java.sql.Date tglLaporan2 = new java.sql.Date(mw.getDtpCetakLaporan2().getDate().getTime());
                                 sampelTebuDao.cetakLaporanPeriode(tglLaporan1, tglLaporan2);                    
                             } else {
-                                sampelTebuDao.cetakLaporanHarian(tglLaporan1, detailStatus, sampelTebuDao.getTotalRafaksi(tglLaporan1));
-                                //sampelTebuDao.cetakLaporanHarian(tglLaporan1, detailStatus, 100.0);
+                                //sampelTebuDao.cetakLaporanHarian(tglLaporan1, detailStatus, sampelTebuDao.getTotalRafaksi(tglLaporan1));
+                                sampelTebuDao.cetakLaporanHarian(tglLaporan1, detailStatus, 0.00);
                             }
                         }
                     }

@@ -37,7 +37,7 @@ public class DbTimbanganConnectionManager {
                 
                 String cSimpgLokal = "jdbc:mysql://localhost:3306/simpg?user=root&password=&useSSL=false";
 
-                connection = DriverManager.getConnection(cSimpgLokal);
+                connection = DriverManager.getConnection(cSimpgLive);
                 
             } catch (ClassNotFoundException | SQLException e) {
                 //return null;

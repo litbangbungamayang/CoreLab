@@ -9,10 +9,13 @@ import id.buma.cl.database.DbTimbanganConnectionManager;
 import id.buma.cl.model.SampelTebu;
 import id.buma.cl.model.TrukTebu;
 import id.buma.cl.view.MainWindow;
+import static java.lang.Math.round;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -51,7 +54,6 @@ public class TrukTebuDAOSQL implements TrukTebuDAO{
                         "selektor.no_angkutan as nopol2," +
                         "spta.kode_blok as idpetani," +
                         "spta.kode_blok as nokebun," +
-                        "timb.netto as netto," +
                         "selektor.tgl_selektor as periode," +
                         "if (left(spta.kode_kat_lahan,2) = 'TS',1,2) as tstr," +
                         "(" +
@@ -63,11 +65,11 @@ public class TrukTebuDAOSQL implements TrukTebuDAO{
                         "(select mid(spta.kode_blok,6,2)) as afdeling " +
                         "from simpg.t_spta spta " +
                         "inner join simpg.t_selektor as selektor on spta.id = selektor.id_spta " +
-                        "inner join simpg.t_timbangan as timb on spta.id = timb.id_spat "+
                         "where spta.no_spat = ?";
         try {
             PreparedStatement ps = DbTimbanganConnectionManager.getConnection().prepareStatement(sql);
             ps.setString(1, numerator);
+            //JOptionPane.showMessageDialog(mw, numerator);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 TrukTebu tt = new TrukTebu(
@@ -76,7 +78,7 @@ public class TrukTebuDAOSQL implements TrukTebuDAO{
                         rs.getString("nopol2"),
                         rs.getString("idPetani"),
                         rs.getString("noKebun"),
-                        rs.getInt("netto"),
+                        0,
                         rs.getDate("periode"),
                         rs.getInt("tstr"),
                         rs.getString("rayon"),
@@ -159,19 +161,39 @@ public class TrukTebuDAOSQL implements TrukTebuDAO{
 
     @Override
     public int getNettoTruk(String numerator) {
-        String sql = "SELECT * FROM TIMBANG WHERE NUMERATOR=?";
+        //String sql = "SELECT * FROM TIMBANG WHERE NUMERATOR=?";
+        String sql =    "select " +
+                            "timb.bruto as bruto," +
+                            "timb.tara as tara," +
+                            "timb.netto as netto " +
+                        "from simpg.t_timbangan timb " +
+                        "inner join simpg.t_spta spta on spta.id = timb.id_spat " +
+                        "where spta.no_spat = ?";
         try {
             PreparedStatement ps = DbTimbanganConnectionManager.getConnection().prepareStatement(sql);
             ps.setString(1, numerator);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                return rs.getInt("NETTO");
+                return round(rs.getInt("netto"));
             }
         } catch (Exception e){
             JOptionPane.showMessageDialog(mw, "Error getNettoTruk!\nError code = " +
                     e.toString(), "", JOptionPane.ERROR_MESSAGE);
         }
         return 0;
+    }
+
+    @Override
+    public boolean setMasukCs(String noSpta) {
+        String sql = "update simpg.t_spta set ari_status = 1, ari_tgl = now() where no_spat = ?";
+        try (PreparedStatement ps = DbTimbanganConnectionManager.getConnection().prepareStatement(sql)){
+            ps.setString(1, noSpta);
+            if (ps.executeUpdate() == 1) return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(mw, "Error setMasukCS!\nError code = " +
+                    e.toString(), "", JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
     }
     
 }

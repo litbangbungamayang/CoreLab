@@ -639,7 +639,7 @@ public final class MainWindow extends javax.swing.JFrame {
                 .addGroup(pnlManualInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSimpanManualInput, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBatalManualInput, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 350, Short.MAX_VALUE))
+                .addGap(0, 347, Short.MAX_VALUE))
         );
 
         pnlMultiFunction.add(pnlManualInput, "crdManualInput");

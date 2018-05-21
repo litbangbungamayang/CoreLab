@@ -17,6 +17,8 @@ public interface TrukTebuDAO {
     
     public List<TrukTebu> getDataTimbangan(String numerator);
     
+    public boolean setMasukCs(String noSpta);
+    
     public boolean konversiNumerator(String numerator);
     
     public boolean setRafaksi(String numerator, double jenisRafaksi, java.sql.Date periodeAnalisa);
