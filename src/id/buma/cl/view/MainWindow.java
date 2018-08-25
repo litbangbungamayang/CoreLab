@@ -23,7 +23,7 @@ import javax.swing.Timer;
 import org.jdesktop.swingx.JXDatePicker;
 
 /**
- *
+ *byshn
  * @author Bayu Anandavi Muhardika
  */
 public final class MainWindow extends javax.swing.JFrame {
