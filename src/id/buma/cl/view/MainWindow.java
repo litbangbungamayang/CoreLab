@@ -63,7 +63,7 @@ public final class MainWindow extends javax.swing.JFrame {
         commonController.getPeriodeAnalisa();
         commonController.refreshStatusPanel("NIRA");
         commonController.refreshStatusPanel("TRUK");
-        lblPathXds.setText(commonController.bacaFileSetting("XDS"));
+        //lblPathXds.setText(commonController.bacaFileSetting("XDS"));
         commonController.setVersiSistem();
         dtpCetakLaporan2.setEnabled(false);
         //lblPathXds.setText(commonController.getFolderXds());
@@ -85,7 +85,7 @@ public final class MainWindow extends javax.swing.JFrame {
                 commonController.cariFileXds();
             }
         });
-        tmrMonitoringXds.start();
+        //tmrMonitoringXds.start();
     }
     
     public void setTimer(){

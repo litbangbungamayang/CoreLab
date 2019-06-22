@@ -22,7 +22,8 @@ public class DbTimbanganConnectionManager {
     
     public static Connection getConnection() throws Exception {
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName("com.mysql.jdbc.Driver");
             String cLive = "jdbc:sqlserver://192.168.137.240\\SQL2012:1433;"+
                                "databaseName=SugarCaneDb2017;user=sa;password=123456;";
             String cLokal = "jdbc:sqlserver://LOCALHOST\\X230_SRV:1433;"+
@@ -30,7 +31,7 @@ public class DbTimbanganConnectionManager {
             String cSimpgLive = "jdbc:mysql://192.168.39.150:3306/simpg?user=root&password=tiptpn7&useSSL=false";
             String cSimpgLokal = "jdbc:mysql://localhost:3306/simpg?user=root&password=&useSSL=false";
             connection = DriverManager.getConnection(cSimpgLive);
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             //return null;
             JOptionPane.showMessageDialog(null,"<html><body><p style='width: 200px;'>"+
                     e.toString()+"</p></body></html>");

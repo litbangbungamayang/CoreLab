@@ -25,8 +25,8 @@ public class DbCoreSamplerConnectionManager {
     public static Connection getConnection() throws Exception {
         if (connection == null){
             try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");//NOT NEEDED as in the JDBC API 4.0, the DriverManager.getConnection method is enhanced to load JDBC drivers automatically. (https://docs.microsoft.com/en-us/sql/connect/jdbc/using-the-jdbc-driver)
-                
+                //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");//NOT NEEDED as in the JDBC API 4.0, the DriverManager.getConnection method is enhanced to load JDBC drivers automatically. (https://docs.microsoft.com/en-us/sql/connect/jdbc/using-the-jdbc-driver)
+                Class.forName("com.mysql.jdbc.Driver");
                 //String cLokal = "jdbc:sqlserver://LOCALHOST\\SQL2012:1433;"+
                 String cLokal = "jdbc:sqlserver://192.168.137.240\\SQL2012:1433;"+
                                         "databaseName=CoreSampler;user=sa;password=123456;";
