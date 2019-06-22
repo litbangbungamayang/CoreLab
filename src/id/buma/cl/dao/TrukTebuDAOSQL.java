@@ -10,6 +10,7 @@ import id.buma.cl.model.SampelTebu;
 import id.buma.cl.model.TrukTebu;
 import id.buma.cl.view.MainWindow;
 import static java.lang.Math.round;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -56,18 +57,13 @@ public class TrukTebuDAOSQL implements TrukTebuDAO{
                         "spta.kode_blok as nokebun," +
                         "selektor.tgl_selektor as periode," +
                         "if (left(spta.kode_kat_lahan,2) = 'TS',1,2) as tstr," +
-                        "(" +
-                        "if (cast(mid(spta.kode_blok,6,2) as signed) < 5, 'I'," +
-                        "if (cast(mid(spta.kode_blok,6,2) as signed) >= 5 && cast(mid(spta.kode_blok,6,2) as signed) < 8, 'II'," +
-                        "if (cast(mid(spta.kode_blok,6,2) as signed) >= 8 && cast(mid(spta.kode_blok,6,2) as signed) < 10, 'III'," +
-                        "if (cast(mid(spta.kode_blok,6,2) as signed) >= 10 && cast(mid(spta.kode_blok,6,2) as signed) < 17, 'IV', 'TR'))))" +
-                        ") as rayon," +
-                        "(select mid(spta.kode_blok,6,2)) as afdeling " +
+                        "spta.kode_affd as rayon," +
+                        "spta.kode_affd as afdeling " +
                         "from simpg.t_spta spta " +
                         "inner join simpg.t_selektor as selektor on spta.id = selektor.id_spta " +
                         "where spta.no_spat = ?";
-        try {
-            PreparedStatement ps = DbTimbanganConnectionManager.getConnection().prepareStatement(sql);
+        try (Connection conn = DbTimbanganConnectionManager.getConnection()){
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, numerator);
             //JOptionPane.showMessageDialog(mw, numerator);
             ResultSet rs = ps.executeQuery();
@@ -186,7 +182,8 @@ public class TrukTebuDAOSQL implements TrukTebuDAO{
     @Override
     public boolean setMasukCs(String noSpta) {
         String sql = "update simpg.t_spta set ari_status = 1, ari_tgl = now() where no_spat = ?";
-        try (PreparedStatement ps = DbTimbanganConnectionManager.getConnection().prepareStatement(sql)){
+        try (Connection conn = DbTimbanganConnectionManager.getConnection()){
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, noSpta);
             if (ps.executeUpdate() == 1) return true;
         } catch (Exception e) {

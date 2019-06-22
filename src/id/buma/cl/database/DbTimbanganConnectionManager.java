@@ -21,29 +21,19 @@ public class DbTimbanganConnectionManager {
     private static Connection connection = null;
     
     public static Connection getConnection() throws Exception {
-        if (connection == null){
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");//NOT NEEDED as in the JDBC API 4.0, the DriverManager.getConnection method is enhanced to load JDBC drivers automatically. (https://docs.microsoft.com/en-us/sql/connect/jdbc/using-the-jdbc-driver)
-                
-                //String cLive = "jdbc:jtds:sqlserver://192.168.39.100:1433;"+
-                //String cLive = "jdbc:sqlserver://LOCALHOST\\SQL2012:1433;"+
-                String cLive = "jdbc:sqlserver://192.168.137.240\\SQL2012:1433;"+
-                                   "databaseName=SugarCaneDb2017;user=sa;password=123456;";
-                
-                String cLokal = "jdbc:sqlserver://LOCALHOST\\X230_SRV:1433;"+
-                                   "databaseName=SugarCaneDb;user=prod;password=prod;";
-                
-                String cSimpgLive = "jdbc:mysql://192.168.39.150:3306/simpg?user=root&password=tiptpn7&useSSL=false";
-                
-                String cSimpgLokal = "jdbc:mysql://localhost:3306/simpg?user=root&password=&useSSL=false";
-
-                connection = DriverManager.getConnection(cSimpgLive);
-                
-            } catch (ClassNotFoundException | SQLException e) {
-                //return null;
-                JOptionPane.showMessageDialog(null,"<html><body><p style='width: 200px;'>"+
-                        e.toString()+"</p></body></html>");
-            }
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String cLive = "jdbc:sqlserver://192.168.137.240\\SQL2012:1433;"+
+                               "databaseName=SugarCaneDb2017;user=sa;password=123456;";
+            String cLokal = "jdbc:sqlserver://LOCALHOST\\X230_SRV:1433;"+
+                               "databaseName=SugarCaneDb;user=prod;password=prod;";
+            String cSimpgLive = "jdbc:mysql://192.168.39.150:3306/simpg?user=root&password=tiptpn7&useSSL=false";
+            String cSimpgLokal = "jdbc:mysql://localhost:3306/simpg?user=root&password=&useSSL=false";
+            connection = DriverManager.getConnection(cSimpgLive);
+        } catch (ClassNotFoundException | SQLException e) {
+            //return null;
+            JOptionPane.showMessageDialog(null,"<html><body><p style='width: 200px;'>"+
+                    e.toString()+"</p></body></html>");
         }
         return connection;
     }

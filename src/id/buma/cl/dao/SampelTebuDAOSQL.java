@@ -93,7 +93,8 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
                 ps.setString(9, st.getRayon());
                 ps.setString(10, st.getTstr());
                 ps.setDate(11, new java.sql.Date(st.getPeriode().getTime()));
-                ps.setDate(12, new java.sql.Date(st.getTgl_input().getTime()));
+                //ps.setDate(12, new java.sql.Date(st.getTgl_input().getTime()));
+                ps.setTimestamp(12, new java.sql.Timestamp(System.currentTimeMillis()));
                 ps.setTime(13, new java.sql.Time(st.getJam_input().getTime()));
                 ps.setDate(14, new java.sql.Date(st.getTgl_press().getTime()));
                 ps.setTime(15, new java.sql.Time(st.getJam_press().getTime()));
@@ -128,7 +129,7 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
         try {
             if (DbCoreSamplerConnectionManager.getConnection() == null){
                return false;
-            } else {
+            } else { 
                 PreparedStatement ps = DbCoreSamplerConnectionManager.getConnection().prepareStatement(sql);
                 ps.setDate(1, new java.sql.Date(st.getTgl_press().getTime()));
                 ps.setTime(2, new java.sql.Time(st.getJam_press().getTime()));
@@ -521,7 +522,8 @@ public class SampelTebuDAOSQL implements SampelTebuDAO{
                         ps.setInt(1, beratAmpas);
                         ps.setDouble(2, nira);
                         ps.setDouble(3, knpp);
-                        ps.setDate(4, new java.sql.Date(new Date().getTime()));
+                        //ps.setDate(4, new java.sql.Date(new Date().getTime()));
+                        ps.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
                         ps.setTime(5, new java.sql.Time(new Date().getTime()));
                         ps.setString(6, idUser);
                         ps.setString(7, idAnalisa);

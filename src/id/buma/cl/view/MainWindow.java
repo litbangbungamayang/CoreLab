@@ -293,7 +293,6 @@ public final class MainWindow extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setName("frmUtama"); // NOI18N
         setUndecorated(true);
-        setResizable(false);
 
         pnlMainWindowAtas.setBackground(new java.awt.Color(5, 153, 39));
         pnlMainWindowAtas.setForeground(new java.awt.Color(5, 153, 39));
@@ -582,7 +581,6 @@ public final class MainWindow extends javax.swing.JFrame {
         btnSimpanManualInput.setText("Simpan Data");
         btnSimpanManualInput.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnSimpanManualInput.setIconTextGap(10);
-        btnSimpanManualInput.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnSimpanManualInput.setName("btnSimpanManualInput"); // NOI18N
 
         btnBatalManualInput.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
@@ -590,7 +588,6 @@ public final class MainWindow extends javax.swing.JFrame {
         btnBatalManualInput.setText("Batal");
         btnBatalManualInput.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnBatalManualInput.setIconTextGap(10);
-        btnBatalManualInput.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnBatalManualInput.setName("btnBatalManualInput"); // NOI18N
 
         javax.swing.GroupLayout pnlManualInputLayout = new javax.swing.GroupLayout(pnlManualInput);
@@ -697,7 +694,6 @@ public final class MainWindow extends javax.swing.JFrame {
         btnCetakHasilAnalisa.setText("Update Data Truk");
         btnCetakHasilAnalisa.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnCetakHasilAnalisa.setIconTextGap(10);
-        btnCetakHasilAnalisa.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnCetakHasilAnalisa.setMaximumSize(new java.awt.Dimension(180, 35));
         btnCetakHasilAnalisa.setMinimumSize(new java.awt.Dimension(180, 35));
         btnCetakHasilAnalisa.setName("btnCetakHasil"); // NOI18N
@@ -708,7 +704,6 @@ public final class MainWindow extends javax.swing.JFrame {
         btnCrosscheckManual.setText("Crosscheck reg. manual");
         btnCrosscheckManual.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnCrosscheckManual.setIconTextGap(10);
-        btnCrosscheckManual.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnCrosscheckManual.setName("btnCetakId"); // NOI18N
 
         btnCekPrinter.setText("jButton1");
@@ -719,7 +714,6 @@ public final class MainWindow extends javax.swing.JFrame {
         btnRefreshData.setText("Refresh Data");
         btnRefreshData.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnRefreshData.setIconTextGap(10);
-        btnRefreshData.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnRefreshData.setMaximumSize(new java.awt.Dimension(180, 35));
         btnRefreshData.setMinimumSize(new java.awt.Dimension(180, 35));
         btnRefreshData.setName("btnRefreshData"); // NOI18N
@@ -878,7 +872,6 @@ public final class MainWindow extends javax.swing.JFrame {
         btnCetakId.setText("Cetak ID");
         btnCetakId.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnCetakId.setIconTextGap(10);
-        btnCetakId.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnCetakId.setName("btnCetakId"); // NOI18N
 
         btnManualId.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
@@ -886,7 +879,6 @@ public final class MainWindow extends javax.swing.JFrame {
         btnManualId.setText("Reg. Offline");
         btnManualId.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnManualId.setIconTextGap(10);
-        btnManualId.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnManualId.setName("btnManualId"); // NOI18N
 
         jScrollPane2.setMaximumSize(new java.awt.Dimension(98, 45));
@@ -906,7 +898,7 @@ public final class MainWindow extends javax.swing.JFrame {
             pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlIdTrukRegLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlIdTrukRegLayout.createSequentialGroup()
                         .addGroup(pnlIdTrukRegLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1019,7 +1011,7 @@ public final class MainWindow extends javax.swing.JFrame {
         pnlIdTruk.setLayout(pnlIdTrukLayout);
         pnlIdTrukLayout.setHorizontalGroup(
             pnlIdTrukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlIdTrukMenuAtas, javax.swing.GroupLayout.DEFAULT_SIZE, 1448, Short.MAX_VALUE)
+            .addComponent(pnlIdTrukMenuAtas, javax.swing.GroupLayout.DEFAULT_SIZE, 1457, Short.MAX_VALUE)
             .addComponent(pnlIdTrukContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlIdTrukLayout.setVerticalGroup(
@@ -1119,7 +1111,6 @@ public final class MainWindow extends javax.swing.JFrame {
         btnSimpanAmpas.setText("Ambil Berat Ampas");
         btnSimpanAmpas.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnSimpanAmpas.setIconTextGap(10);
-        btnSimpanAmpas.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnSimpanAmpas.setName("btnSimpanAmpas"); // NOI18N
         btnSimpanAmpas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1306,7 +1297,7 @@ public final class MainWindow extends javax.swing.JFrame {
         pnlNira.setLayout(pnlNiraLayout);
         pnlNiraLayout.setHorizontalGroup(
             pnlNiraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlNiraMenuAtas, javax.swing.GroupLayout.DEFAULT_SIZE, 1448, Short.MAX_VALUE)
+            .addComponent(pnlNiraMenuAtas, javax.swing.GroupLayout.DEFAULT_SIZE, 1457, Short.MAX_VALUE)
             .addComponent(pnlNiraContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlNiraLayout.setVerticalGroup(
@@ -1389,7 +1380,7 @@ public final class MainWindow extends javax.swing.JFrame {
         pnlXds.setLayout(pnlXdsLayout);
         pnlXdsLayout.setHorizontalGroup(
             pnlXdsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlXdsMenuAtas, javax.swing.GroupLayout.DEFAULT_SIZE, 1448, Short.MAX_VALUE)
+            .addComponent(pnlXdsMenuAtas, javax.swing.GroupLayout.DEFAULT_SIZE, 1457, Short.MAX_VALUE)
             .addGroup(pnlXdsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1461,7 +1452,6 @@ public final class MainWindow extends javax.swing.JFrame {
         btnUploadNetto.setText("Upload Netto");
         btnUploadNetto.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnUploadNetto.setIconTextGap(10);
-        btnUploadNetto.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnUploadNetto.setName("btnUploadNetto"); // NOI18N
 
         javax.swing.GroupLayout pnlUploadNettoLayout = new javax.swing.GroupLayout(pnlUploadNetto);
@@ -1511,7 +1501,6 @@ public final class MainWindow extends javax.swing.JFrame {
         btnGantiPeriode.setText("Ganti Periode");
         btnGantiPeriode.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnGantiPeriode.setIconTextGap(10);
-        btnGantiPeriode.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnGantiPeriode.setName("btnGantiPeriode"); // NOI18N
 
         javax.swing.GroupLayout pnlGantiPeriodeLayout = new javax.swing.GroupLayout(pnlGantiPeriode);
@@ -1561,7 +1550,6 @@ public final class MainWindow extends javax.swing.JFrame {
         btnLapHar.setText("Laporan Harian");
         btnLapHar.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnLapHar.setIconTextGap(10);
-        btnLapHar.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnLapHar.setName("btnLapHar"); // NOI18N
 
         dtpCetakLaporan2.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
@@ -1635,7 +1623,7 @@ public final class MainWindow extends javax.swing.JFrame {
         pnlAdmin.setLayout(pnlAdminLayout);
         pnlAdminLayout.setHorizontalGroup(
             pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlIdTrukMenuAtas1, javax.swing.GroupLayout.DEFAULT_SIZE, 1448, Short.MAX_VALUE)
+            .addComponent(pnlIdTrukMenuAtas1, javax.swing.GroupLayout.DEFAULT_SIZE, 1457, Short.MAX_VALUE)
             .addGroup(pnlAdminLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1691,7 +1679,6 @@ public final class MainWindow extends javax.swing.JFrame {
         btnLogin.setText("LOGIN");
         btnLogin.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnLogin.setIconTextGap(10);
-        btnLogin.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnLogin.setName("btnLogin"); // NOI18N
 
         ftxtPassword.setBackground(new java.awt.Color(204, 204, 204));
@@ -1776,7 +1763,7 @@ public final class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlMainWindowAtas, javax.swing.GroupLayout.DEFAULT_SIZE, 1448, Short.MAX_VALUE)
+            .addComponent(pnlMainWindowAtas, javax.swing.GroupLayout.DEFAULT_SIZE, 1457, Short.MAX_VALUE)
             .addComponent(pnlMainWindowBawah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(

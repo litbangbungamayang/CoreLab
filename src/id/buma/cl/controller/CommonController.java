@@ -156,6 +156,10 @@ public class CommonController implements MouseListener {
     *   + Perbaikan report harian dan periode
     *   + Perbaikan alur program, disable rafaksi
     *   + Perubahan koneksi database untuk ambil netto
+    * CoreLab v1.01.22062019.2050
+    *   + Migrasi koneksi database ke MySQL (sebelumnya MSSQL)
+    *   + Versi 'ad-hoc', selanjutnya dilakukan pengembangan baru
+    *
     */
     
     public void setVersiSistem(){
@@ -293,7 +297,7 @@ public class CommonController implements MouseListener {
     public String bacaFileSetting(String settingParam){
         try {
             List<String> isiFile = new ArrayList<>();
-            FileReader reader = new FileReader("Settings.txt");
+            FileReader reader = new FileReader("lib/settings.txt");
             BufferedReader buffreader = new BufferedReader(reader);
             String line;
             while ((line = buffreader.readLine()) != null){

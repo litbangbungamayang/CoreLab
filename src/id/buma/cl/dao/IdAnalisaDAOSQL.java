@@ -91,7 +91,7 @@ public class IdAnalisaDAOSQL implements IdAnalisaDAO{
     @Override
     public java.sql.Date getPeriodeAnalisa() {
         java.sql.Date tglPeriode = null;
-        String sql = "SELECT PERIODE_ANALISA FROM TBL_NUMERATOR";
+        String sql = "SELECT PERIODE_ANALISA FROM TBL_NUMERATOR ";
         try{
             if (DbCoreSamplerConnectionManager.isConnect() == true){
                 PreparedStatement ps = DbCoreSamplerConnectionManager.getConnection().prepareStatement(sql);

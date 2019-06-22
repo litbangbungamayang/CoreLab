@@ -16,7 +16,6 @@
     <Property name="locationByPlatform" type="boolean" value="true"/>
     <Property name="name" type="java.lang.String" value="frmUtama" noResource="true"/>
     <Property name="undecorated" type="boolean" value="true"/>
-    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -37,7 +36,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="pnlMainWindowAtas" pref="1448" max="32767" attributes="0"/>
+          <Component id="pnlMainWindowAtas" pref="1457" max="32767" attributes="0"/>
           <Component id="pnlMainWindowBawah" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
@@ -495,7 +494,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="pnlIdTrukMenuAtas" pref="1448" max="32767" attributes="0"/>
+                  <Component id="pnlIdTrukMenuAtas" pref="1457" max="32767" attributes="0"/>
                   <Component id="pnlIdTrukContent" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
@@ -811,9 +810,6 @@
                             <Property name="text" type="java.lang.String" value="Simpan Data"/>
                             <Property name="horizontalAlignment" type="int" value="10"/>
                             <Property name="iconTextGap" type="int" value="10"/>
-                            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                              <Insets value="[0, 0, 0, 0]"/>
-                            </Property>
                             <Property name="name" type="java.lang.String" value="btnSimpanManualInput" noResource="true"/>
                           </Properties>
                         </Component>
@@ -828,9 +824,6 @@
                             <Property name="text" type="java.lang.String" value="Batal"/>
                             <Property name="horizontalAlignment" type="int" value="10"/>
                             <Property name="iconTextGap" type="int" value="10"/>
-                            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                              <Insets value="[0, 0, 0, 0]"/>
-                            </Property>
                             <Property name="name" type="java.lang.String" value="btnBatalManualInput" noResource="true"/>
                           </Properties>
                         </Component>
@@ -1011,9 +1004,6 @@
                             <Property name="text" type="java.lang.String" value="Update Data Truk"/>
                             <Property name="horizontalAlignment" type="int" value="10"/>
                             <Property name="iconTextGap" type="int" value="10"/>
-                            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                              <Insets value="[0, 0, 0, 0]"/>
-                            </Property>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[180, 35]"/>
                             </Property>
@@ -1037,9 +1027,6 @@
                             <Property name="text" type="java.lang.String" value="Crosscheck reg. manual"/>
                             <Property name="horizontalAlignment" type="int" value="10"/>
                             <Property name="iconTextGap" type="int" value="10"/>
-                            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                              <Insets value="[0, 0, 0, 0]"/>
-                            </Property>
                             <Property name="name" type="java.lang.String" value="btnCetakId" noResource="true"/>
                           </Properties>
                         </Component>
@@ -1060,9 +1047,6 @@
                             <Property name="text" type="java.lang.String" value="Refresh Data"/>
                             <Property name="horizontalAlignment" type="int" value="10"/>
                             <Property name="iconTextGap" type="int" value="10"/>
-                            <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                              <Insets value="[0, 0, 0, 0]"/>
-                            </Property>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[180, 35]"/>
                             </Property>
@@ -1095,7 +1079,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane2" alignment="0" pref="334" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="16" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -1470,9 +1454,6 @@
                         <Property name="text" type="java.lang.String" value="Cetak ID"/>
                         <Property name="horizontalAlignment" type="int" value="10"/>
                         <Property name="iconTextGap" type="int" value="10"/>
-                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                          <Insets value="[0, 0, 0, 0]"/>
-                        </Property>
                         <Property name="name" type="java.lang.String" value="btnCetakId" noResource="true"/>
                       </Properties>
                     </Component>
@@ -1487,9 +1468,6 @@
                         <Property name="text" type="java.lang.String" value="Reg. Offline"/>
                         <Property name="horizontalAlignment" type="int" value="10"/>
                         <Property name="iconTextGap" type="int" value="10"/>
-                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                          <Insets value="[0, 0, 0, 0]"/>
-                        </Property>
                         <Property name="name" type="java.lang.String" value="btnManualId" noResource="true"/>
                       </Properties>
                     </Component>
@@ -1546,7 +1524,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="pnlNiraMenuAtas" pref="1448" max="32767" attributes="0"/>
+                  <Component id="pnlNiraMenuAtas" pref="1457" max="32767" attributes="0"/>
                   <Component id="pnlNiraContent" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
@@ -1814,9 +1792,6 @@
                         <Property name="text" type="java.lang.String" value="Ambil Berat Ampas"/>
                         <Property name="horizontalAlignment" type="int" value="10"/>
                         <Property name="iconTextGap" type="int" value="10"/>
-                        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                          <Insets value="[0, 0, 0, 0]"/>
-                        </Property>
                         <Property name="name" type="java.lang.String" value="btnSimpanAmpas" noResource="true"/>
                       </Properties>
                       <Events>
@@ -2059,7 +2034,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="pnlXdsMenuAtas" alignment="0" pref="1448" max="32767" attributes="0"/>
+                  <Component id="pnlXdsMenuAtas" alignment="0" pref="1457" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
@@ -2231,7 +2206,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="pnlIdTrukMenuAtas1" alignment="0" pref="1448" max="32767" attributes="0"/>
+                  <Component id="pnlIdTrukMenuAtas1" alignment="0" pref="1457" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -2437,9 +2412,6 @@
                     <Property name="text" type="java.lang.String" value="Upload Netto"/>
                     <Property name="horizontalAlignment" type="int" value="10"/>
                     <Property name="iconTextGap" type="int" value="10"/>
-                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                      <Insets value="[0, 0, 0, 0]"/>
-                    </Property>
                     <Property name="name" type="java.lang.String" value="btnUploadNetto" noResource="true"/>
                   </Properties>
                 </Component>
@@ -2532,9 +2504,6 @@
                     <Property name="text" type="java.lang.String" value="Ganti Periode"/>
                     <Property name="horizontalAlignment" type="int" value="10"/>
                     <Property name="iconTextGap" type="int" value="10"/>
-                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                      <Insets value="[0, 0, 0, 0]"/>
-                    </Property>
                     <Property name="name" type="java.lang.String" value="btnGantiPeriode" noResource="true"/>
                   </Properties>
                 </Component>
@@ -2643,9 +2612,6 @@
                     <Property name="text" type="java.lang.String" value="Laporan Harian"/>
                     <Property name="horizontalAlignment" type="int" value="10"/>
                     <Property name="iconTextGap" type="int" value="10"/>
-                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                      <Insets value="[0, 0, 0, 0]"/>
-                    </Property>
                     <Property name="name" type="java.lang.String" value="btnLapHar" noResource="true"/>
                   </Properties>
                 </Component>
@@ -2851,9 +2817,6 @@
                     <Property name="text" type="java.lang.String" value="LOGIN"/>
                     <Property name="horizontalAlignment" type="int" value="10"/>
                     <Property name="iconTextGap" type="int" value="10"/>
-                    <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
-                      <Insets value="[0, 0, 0, 0]"/>
-                    </Property>
                     <Property name="name" type="java.lang.String" value="btnLogin" noResource="true"/>
                   </Properties>
                 </Component>
